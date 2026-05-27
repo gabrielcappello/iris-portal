@@ -735,7 +735,7 @@ async function doLogin() {
     if (!rows.length) throw new Error('not found');
     const clinica = rows[0];
     // Simple hash check — in production use proper bcrypt
-    if (clinica.senha_hash !== btoa(pass) && clinica.senha_hash !== pass) throw new Error('wrong pass');
+    if (clinica.senha_hash !== pass) throw new Error('wrong pass');
     currentClinica = clinica;
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('app').style.display = 'block';
