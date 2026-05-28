@@ -7,199 +7,203 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #050810;
-  --surface: #0d1117;
-  --surface2: #161b27;
-  --surface3: #1e2538;
-  --border: #1f2d45;
-  --border2: #2a3a55;
-  --accent: #3b82f6;
-  --accent2: #60a5fa;
-  --accent3: #93c5fd;
-  --green: #10b981;
-  --red: #ef4444;
-  --amber: #f59e0b;
-  --text: #e2e8f0;
-  --text2: #94a3b8;
-  --text3: #475569;
-  --radius: 14px;
-  --radius-sm: 8px;
+  --bg:#050810; --surface:#0d1117; --surface2:#161b27; --surface3:#1e2538;
+  --border:#1f2d45; --border2:#2a3a55;
+  --accent:#3b82f6; --accent2:#60a5fa; --accent3:#93c5fd;
+  --green:#10b981; --red:#ef4444; --amber:#f59e0b;
+  --text:#e2e8f0; --text2:#94a3b8; --text3:#475569;
+  --radius:14px; --radius-sm:8px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background: radial-gradient(ellipse 80% 50% at 20% -10%, rgba(59,130,246,.12) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 40% at 80% 110%, rgba(16,185,129,.06) 0%, transparent 60%);
-  pointer-events: none; z-index: 0;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(59,130,246,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(16,185,129,.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
 
 /* LOGIN */
-#login-page { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 100; padding: 24px; }
-.login-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-  padding: 48px 44px; width: 100%; max-width: 420px; position: relative;
-  box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(59,130,246,.08);
-  animation: loginIn .5s cubic-bezier(.16,1,.3,1);
-}
-@keyframes loginIn { from { opacity:0; transform: translateY(24px) scale(.97); } to { opacity:1; transform: none; } }
-.login-card::before {
-  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
-}
-.login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
-.login-logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--accent), #1d4ed8); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 8px 24px rgba(59,130,246,.35); }
-.login-logo h1 { font-size: 22px; font-weight: 700; letter-spacing: -.3px; }
-.login-logo p { font-size: 11px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
-.login-title { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
-.login-sub { font-size: 14px; color: var(--text2); margin-bottom: 32px; }
-.field { margin-bottom: 16px; }
-.field label { display: block; font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
-.field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--text); outline: none; transition: border-color .2s, box-shadow .2s; }
-.field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
-.btn-primary { width: 100%; background: linear-gradient(135deg, var(--accent), #1d4ed8); color: white; border: none; border-radius: var(--radius-sm); padding: 14px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 8px; box-shadow: 0 4px 16px rgba(59,130,246,.3); }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(59,130,246,.4); }
-.btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-.login-error { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: #fca5a5; margin-top: 12px; display: none; }
+#login-page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;padding:24px;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:48px 44px;width:100%;max-width:420px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(59,130,246,.08);animation:loginIn .5s cubic-bezier(.16,1,.3,1);}
+@keyframes loginIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.login-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;}
+.login-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),#1d4ed8);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 8px 24px rgba(59,130,246,.35);}
+.login-logo h1{font-size:22px;font-weight:700;letter-spacing:-.3px;}
+.login-logo p{font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;}
+.login-title{font-size:26px;font-weight:700;margin-bottom:6px;}
+.login-sub{font-size:14px;color:var(--text2);margin-bottom:32px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.field input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,.15);}
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),#1d4ed8);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:8px;box-shadow:0 4px 16px rgba(59,130,246,.3);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(59,130,246,.4);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.login-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#fca5a5;margin-top:12px;display:none;}
 
 /* APP */
-#app { display: none; position: relative; z-index: 1; }
-header { position: sticky; top: 0; z-index: 50; background: rgba(5,8,16,.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 32px; height: 64px; display: flex; align-items: center; gap: 16px; }
-.header-logo { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; }
-.header-logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #1d4ed8); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
-.header-clinic { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.header-clinic-name { font-size: 13px; font-weight: 600; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; }
-.btn-logout { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; color: var(--text2); font-family: 'Outfit', sans-serif; font-size: 13px; cursor: pointer; transition: all .2s; }
-.btn-logout:hover { border-color: var(--red); color: var(--red); }
+#app{display:none;position:relative;z-index:1;}
+header{position:sticky;top:0;z-index:50;background:rgba(5,8,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;gap:16px;}
+.header-logo{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;}
+.header-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#1d4ed8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.header-clinic{margin-left:auto;display:flex;align-items:center;gap:12px;}
+.header-clinic-name{font-size:13px;font-weight:600;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;}
+.btn-logout{background:transparent;border:1px solid var(--border);border-radius:8px;padding:6px 14px;color:var(--text2);font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.btn-logout:hover{border-color:var(--red);color:var(--red);}
 
 /* NAV TABS */
-.tab-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 4px; overflow-x: auto; }
-.tab-btn { padding: 16px 20px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; color: var(--text2); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all .2s; display: flex; align-items: center; gap: 8px; }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--accent2); border-bottom-color: var(--accent); }
-.tab-badge { background: rgba(59,130,246,.15); color: var(--accent2); border-radius: 99px; padding: 1px 7px; font-size: 10px; font-family: 'JetBrains Mono', monospace; }
+.tab-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:4px;overflow-x:auto;}
+.tab-btn{padding:16px 20px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--text2);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:8px;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.tab-badge{background:rgba(59,130,246,.15);color:var(--accent2);border-radius:99px;padding:1px 7px;font-size:10px;font-family:'JetBrains Mono',monospace;}
 
 /* MAIN */
-.main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
-.tab-panel { display: none; animation: fadeUp .3s ease; }
-.tab-panel.active { display: block; }
-@keyframes fadeUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+.main{max-width:1100px;margin:0 auto;padding:32px 24px;}
+.tab-panel{display:none;animation:fadeUp .3s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* CARDS */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
-.card-header { padding: 18px 24px; background: var(--surface2); display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
-.card-header h2 { font-size: 15px; font-weight: 600; }
-.card-header p { font-size: 12px; color: var(--text2); margin-top: 2px; }
-.card-body { padding: 24px; }
-
-/* FORM */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group.full { grid-column: 1 / -1; }
-.form-group label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; }
-.form-group input, .form-group select, .form-group textarea { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color .2s; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
-.form-group select option { background: var(--surface2); }
+/* ACCORDION */
+.accordion{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
+.accordion-header{padding:18px 24px;background:var(--surface2);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .2s;}
+.accordion-header:hover{background:var(--surface3);}
+.accordion-icon{font-size:18px;}
+.accordion-title{flex:1;}
+.accordion-title h2{font-size:15px;font-weight:600;}
+.accordion-title p{font-size:12px;color:var(--text2);margin-top:2px;}
+.accordion-arrow{color:var(--text3);font-size:18px;transition:transform .3s;}
+.accordion-arrow.open{transform:rotate(180deg);}
+.accordion-body{display:none;border-top:1px solid var(--border);}
+.accordion-body.open{display:block;}
+.accordion-body-inner{padding:24px;}
 
 /* SAVE BAR */
-.save-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border); background: var(--surface2); }
-.btn-save { background: linear-gradient(135deg, var(--accent), #1d4ed8); color: white; border: none; border-radius: var(--radius-sm); padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(59,130,246,.3); }
-.btn-save:hover { transform: translateY(-1px); }
-.btn-save:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-.save-status { font-size: 13px; color: var(--text2); }
-.save-status.ok { color: var(--green); }
-.save-status.err { color: var(--red); }
+.save-bar{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid var(--border);background:var(--surface2);}
+.btn-save{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:white;border:none;border-radius:var(--radius-sm);padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(59,130,246,.3);}
+.btn-save:hover{transform:translateY(-1px);}
+.btn-save:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.save-status{font-size:13px;color:var(--text2);}
+.save-status.ok{color:var(--green);}
+.save-status.err{color:var(--red);}
 
-/* DENTIST CARD */
-.dentist-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: border-color .2s; }
-.dentist-card:has(.toggle.on) { border-color: rgba(59,130,246,.4); }
-.dentist-toggle { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.toggle-label { font-size: 13px; font-weight: 600; flex: 1; }
-.toggle { width: 44px; height: 24px; background: var(--surface3); border: 1px solid var(--border); border-radius: 99px; cursor: pointer; position: relative; transition: background .2s; flex-shrink: 0; }
-.toggle.on { background: var(--accent); border-color: var(--accent); }
-.toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform .2s; }
-.toggle.on::after { transform: translateX(20px); }
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.form-group input,.form-group select,.form-group textarea{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent);}
+.form-group select option{background:var(--surface2);}
 
-/* MODO TOGGLE (automático / manual) */
-.mode-toggle { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
-.mode-btn { flex: 1; padding: 8px 12px; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; background: transparent; border: none; color: var(--text2); cursor: pointer; transition: all .2s; white-space: nowrap; }
-.mode-btn.active { background: var(--accent); color: white; }
-.mode-btn:not(.active):hover { background: var(--surface3); color: var(--text); }
+/* TOGGLE */
+.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:0;}
+.toggle-label{font-size:13px;font-weight:600;flex:1;}
+.toggle{width:44px;height:24px;background:var(--surface3);border:1px solid var(--border);border-radius:99px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
+.toggle.on{background:var(--accent);border-color:var(--accent);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform .2s;}
+.toggle.on::after{transform:translateX(20px);}
 
-/* SLOTS PREVIEW */
-.slots-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; min-height: 42px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.slot-chip { background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.25); color: var(--accent2); border-radius: 6px; padding: 2px 8px; font-size: 11px; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
-.slots-empty { font-size: 12px; color: var(--text3); }
+/* DENTISTA ACCORDION (inside main accordion) */
+.dent-accordion{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.dent-accordion-header{padding:14px 18px;background:var(--surface2);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .15s;}
+.dent-accordion-header:hover{background:var(--surface3);}
+.dent-accordion-header.has-active{border-left:3px solid var(--accent);}
+.dent-name-label{flex:1;font-size:14px;font-weight:600;}
+.dent-accordion-arrow{color:var(--text3);font-size:16px;transition:transform .3s;margin-left:8px;}
+.dent-accordion-arrow.open{transform:rotate(180deg);}
+.dent-accordion-body{display:none;padding:20px;border-top:1px solid var(--border);}
+.dent-accordion-body.open{display:block;}
 
-/* PROCEDURES CHECKBOXES */
-.procs-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-.proc-chip {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 99px;
-  border: 1px solid var(--border); background: var(--surface2);
-  cursor: pointer; transition: all .2s; user-select: none;
-  font-size: 12px; font-weight: 500; color: var(--text2);
-}
-.proc-chip:hover { border-color: var(--accent2); color: var(--text); }
-.proc-chip.selected { background: rgba(59,130,246,.15); border-color: var(--accent); color: var(--accent2); }
-.proc-chip input[type=checkbox] { display: none; }
+/* MODE TOGGLE */
+.mode-toggle{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
+.mode-btn{flex:1;padding:8px 10px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;background:transparent;border:none;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.mode-btn.active{background:var(--accent);color:white;}
+.mode-btn:not(.active):hover{background:var(--surface3);color:var(--text);}
+
+/* SLOTS */
+.slots-preview{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;min-height:42px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.slot-chip{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:var(--accent2);border-radius:6px;padding:2px 8px;font-size:11px;font-family:'JetBrains Mono',monospace;}
+.slots-empty{font-size:12px;color:var(--text3);}
+
+/* PROCEDIMENTOS */
+.spec-accordion{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;}
+.spec-header{padding:10px 14px;background:var(--surface2);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:13px;font-weight:600;transition:background .15s;}
+.spec-header:hover{background:var(--surface3);}
+.spec-header .spec-arrow{margin-left:auto;color:var(--text3);font-size:14px;transition:transform .25s;}
+.spec-header .spec-arrow.open{transform:rotate(180deg);}
+.spec-body{display:none;padding:12px 14px;border-top:1px solid var(--border);}
+.spec-body.open{display:block;}
+.proc-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.proc-row:last-child{border-bottom:none;}
+.proc-check{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
+.proc-name{flex:1;font-size:13px;}
+.proc-time-wrap{display:flex;align-items:center;gap:6px;}
+.proc-time{width:72px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);outline:none;text-align:center;}
+.proc-time:focus{border-color:var(--accent);}
+.proc-time-label{font-size:11px;color:var(--text3);}
+.proc-time-btn{width:24px;height:24px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:all .15s;}
+.proc-time-btn:hover{background:var(--accent);color:white;border-color:var(--accent);}
+
+/* AUTOMAÇÕES */
+.auto-item{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+.auto-item:last-child{border-bottom:none;}
+.auto-info{flex:1;}
+.auto-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.auto-sub{font-size:12px;color:var(--text2);}
+.auto-extra{margin-top:10px;display:flex;align-items:center;gap:8px;}
+.auto-extra input{width:70px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;text-align:center;}
+.auto-extra input:focus{border-color:var(--accent);}
+.auto-extra label{font-size:12px;color:var(--text2);}
 
 /* TABLE */
-.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; }
-thead th { background: var(--surface2); padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: var(--surface2); }
-tbody td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
-
-/* BADGES */
-.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; }
-.badge.confirmado { background: rgba(16,185,129,.12); color: #34d399; }
-.badge.cancelado { background: rgba(239,68,68,.12); color: #fca5a5; }
-.badge.remarcado { background: rgba(245,158,11,.12); color: #fcd34d; }
-.badge.ok { background: rgba(59,130,246,.12); color: #93c5fd; }
-.badge.falto { background: rgba(239,68,68,.12); color: #fca5a5; }
-.status-select { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-size: 12px; color: var(--text); font-family: 'Outfit', sans-serif; cursor: pointer; }
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;}
+thead th{background:var(--surface2);padding:12px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--surface2);}
+tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;}
+.badge.confirmado{background:rgba(16,185,129,.12);color:#34d399;}
+.badge.cancelado{background:rgba(239,68,68,.12);color:#fca5a5;}
+.badge.remarcado{background:rgba(245,158,11,.12);color:#fcd34d;}
+.badge.ok{background:rgba(59,130,246,.12);color:#93c5fd;}
+.badge.falto{background:rgba(239,68,68,.12);color:#fca5a5;}
+.status-select{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;color:var(--text);font-family:'Outfit',sans-serif;cursor:pointer;}
 
 /* SEARCH */
-.search-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.search-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 16px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color .2s; }
-.search-input:focus { border-color: var(--accent); }
-
-/* EMPTY / LOADING */
-.empty { text-align: center; padding: 60px 24px; color: var(--text2); }
-.empty-icon { font-size: 40px; margin-bottom: 12px; }
-.empty p { font-size: 14px; }
-.loading { display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--text2); font-size: 14px; gap: 10px; }
-.spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.search-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.search-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.search-input:focus{border-color:var(--accent);}
+.empty{text-align:center;padding:60px 24px;color:var(--text2);}
+.empty-icon{font-size:40px;margin-bottom:12px;}
+.loading{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--text2);font-size:14px;gap:10px;}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* TOAST */
-#toast { position: fixed; bottom: 24px; right: 24px; z-index: 999; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 20px; font-size: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.5); transform: translateY(80px); opacity: 0; transition: all .3s cubic-bezier(.16,1,.3,1); pointer-events: none; }
-#toast.show { transform: none; opacity: 1; }
-#toast.ok { border-color: var(--green); color: #34d399; }
-#toast.err { border-color: var(--red); color: #fca5a5; }
+#toast{position:fixed;bottom:24px;right:24px;z-index:999;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 20px;font-size:14px;box-shadow:0 16px 40px rgba(0,0,0,.5);transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);pointer-events:none;}
+#toast.show{transform:none;opacity:1;}
+#toast.ok{border-color:var(--green);color:#34d399;}
+#toast.err{border-color:var(--red);color:#fca5a5;}
 
 /* MODAL */
-.modal-bg { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); }
-.modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 480px; box-shadow: 0 32px 80px rgba(0,0,0,.6); animation: loginIn .3s cubic-bezier(.16,1,.3,1); }
-.modal h3 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
-.modal textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--text); resize: vertical; min-height: 120px; outline: none; }
-.modal textarea:focus { border-color: var(--accent); }
-.modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
-.btn-cancel { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 20px; color: var(--text2); font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; }
-.btn-ok { background: var(--accent); border: none; border-radius: var(--radius-sm); padding: 9px 20px; color: white; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
-.obs-btn { background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; color: var(--text2); font-size: 12px; cursor: pointer; transition: all .2s; font-family: 'Outfit', sans-serif; }
-.obs-btn:hover { border-color: var(--accent); color: var(--accent2); }
+.modal-bg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;width:100%;max-width:480px;box-shadow:0 32px 80px rgba(0,0,0,.6);animation:loginIn .3s cubic-bezier(.16,1,.3,1);}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:16px;}
+.modal textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);resize:vertical;min-height:120px;outline:none;}
+.modal textarea:focus{border-color:var(--accent);}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+.btn-cancel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 20px;color:var(--text2);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
+.btn-ok{background:var(--accent);border:none;border-radius:var(--radius-sm);padding:9px 20px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.obs-btn{background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
+.obs-btn:hover{border-color:var(--accent);color:var(--accent2);}
 
-@media (max-width: 640px) {
-  .form-grid { grid-template-columns: 1fr; }
-  .form-grid.cols-3 { grid-template-columns: 1fr; }
-  header { padding: 0 16px; }
-  .tab-nav { padding: 0 16px; }
-  .main { padding: 20px 16px; }
+@media(max-width:640px){
+  .form-grid{grid-template-columns:1fr;}
+  .form-grid.cols-3{grid-template-columns:1fr;}
+  header{padding:0 16px;}
+  .tab-nav{padding:0 16px;}
+  .main{padding:20px 16px;}
 }
 </style>
 </head>
@@ -214,14 +218,8 @@ tbody td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
     </div>
     <div class="login-title">Bienvenido</div>
     <div class="login-sub">Ingresa con los datos de tu clínica</div>
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="login-email" placeholder="clinica@ejemplo.com" autocomplete="email">
-    </div>
-    <div class="field">
-      <label>Contraseña</label>
-      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
-    </div>
+    <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="clinica@ejemplo.com" autocomplete="email"></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
     <button class="btn-primary" id="login-btn" onclick="doLogin()">Ingresar</button>
     <div class="login-error" id="login-error">Email o contraseña incorrectos</div>
   </div>
@@ -230,10 +228,7 @@ tbody td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
 <!-- APP -->
 <div id="app">
   <header>
-    <div class="header-logo">
-      <div class="header-logo-icon">🦷</div>
-      Iris Portal
-    </div>
+    <div class="header-logo"><div class="header-logo-icon">🦷</div>Iris Portal</div>
     <div class="header-clinic">
       <div class="header-clinic-name" id="header-clinic-name">—</div>
       <button class="btn-logout" onclick="doLogout()">Salir</button>
@@ -250,39 +245,65 @@ tbody td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
 
     <!-- CONFIG -->
     <div class="tab-panel active" id="tab-config">
-      <div class="card">
-        <div class="card-header">
-          <span>🏥</span>
-          <div><h2>Datos de la Clínica</h2><p>Información usada por el agente en las conversaciones</p></div>
+
+      <!-- CLÍNICA -->
+      <div class="accordion" id="acc-clinica">
+        <div class="accordion-header" onclick="toggleAcc('clinica')">
+          <span class="accordion-icon">🏥</span>
+          <div class="accordion-title"><h2>Datos de la Clínica</h2><p>Información usada por el agente en las conversaciones</p></div>
+          <span class="accordion-arrow open" id="arr-clinica">▼</span>
         </div>
-        <div class="card-body">
-          <div class="form-grid">
-            <div class="form-group"><label>Nombre de la Clínica</label><input id="c_nome" placeholder="Ej: OdontoAR"></div>
-            <div class="form-group"><label>Teléfono</label><input id="c_tel" placeholder="Ej: 1112345678"></div>
-            <div class="form-group"><label>Dirección</label><input id="c_end" placeholder="Calle y número"></div>
-            <div class="form-group"><label>Barrio</label><input id="c_bairro" placeholder="Centro"></div>
-            <div class="form-group"><label>Ciudad</label><input id="c_cidade" placeholder="Buenos Aires"></div>
-            <div class="form-group"><label>Código Postal</label><input id="c_cep" placeholder="C1000"></div>
-            <div class="form-group full"><label>Nombre WhatsApp <span style="font-weight:400;color:var(--text3)">(instancia en Evolution API)</span></label><input id="c_wp" placeholder="Ej: ClinicaAR"></div>
+        <div class="accordion-body open" id="body-clinica">
+          <div class="accordion-body-inner">
+            <div class="form-grid">
+              <div class="form-group"><label>Nombre de la Clínica</label><input id="c_nome" placeholder="Ej: OdontoAR"></div>
+              <div class="form-group"><label>Teléfono</label><input id="c_tel" placeholder="Ej: 1112345678"></div>
+              <div class="form-group"><label>Dirección</label><input id="c_end" placeholder="Calle y número"></div>
+              <div class="form-group"><label>Barrio</label><input id="c_bairro" placeholder="Centro"></div>
+              <div class="form-group"><label>Ciudad</label><input id="c_cidade" placeholder="Buenos Aires"></div>
+              <div class="form-group"><label>Código Postal</label><input id="c_cep" placeholder="C1000"></div>
+              <div class="form-group full"><label>Nombre WhatsApp <span style="font-weight:400;color:var(--text3)">(instancia en Evolution API)</span></label><input id="c_wp" placeholder="Ej: ClinicaAR"></div>
+            </div>
           </div>
-        </div>
-        <div class="save-bar">
-          <span class="save-status" id="cfg-status"></span>
-          <button class="btn-save" onclick="saveConfig()">💾 Guardar</button>
+          <div class="save-bar">
+            <span class="save-status" id="cfg-status"></span>
+            <button class="btn-save" onclick="saveConfig()">💾 Guardar</button>
+          </div>
         </div>
       </div>
 
-      <div class="card" id="dentistas-card">
-        <div class="card-header">
-          <span>👨‍⚕️</span>
-          <div><h2>Dentistas</h2><p>Hasta 5 profesionales con agendas, horarios y procedimientos independientes</p></div>
+      <!-- DENTISTAS -->
+      <div class="accordion" id="acc-dentistas">
+        <div class="accordion-header" onclick="toggleAcc('dentistas')">
+          <span class="accordion-icon">👨‍⚕️</span>
+          <div class="accordion-title"><h2>Dentistas</h2><p>Hasta 5 profesionales con agendas, horarios y procedimientos independientes</p></div>
+          <span class="accordion-arrow open" id="arr-dentistas">▼</span>
         </div>
-        <div class="card-body" id="dentistas-body"></div>
-        <div class="save-bar">
-          <span class="save-status" id="dent-status"></span>
-          <button class="btn-save" onclick="saveDentistas()">💾 Guardar Dentistas</button>
+        <div class="accordion-body open" id="body-dentistas">
+          <div class="accordion-body-inner" id="dentistas-body"></div>
+          <div class="save-bar">
+            <span class="save-status" id="dent-status"></span>
+            <button class="btn-save" onclick="saveDentistas()">💾 Guardar Dentistas</button>
+          </div>
         </div>
       </div>
+
+      <!-- AUTOMAÇÕES -->
+      <div class="accordion" id="acc-auto">
+        <div class="accordion-header" onclick="toggleAcc('auto')">
+          <span class="accordion-icon">⚡</span>
+          <div class="accordion-title"><h2>Automatizaciones</h2><p>Mensajes automáticos para pacientes</p></div>
+          <span class="accordion-arrow" id="arr-auto">▼</span>
+        </div>
+        <div class="accordion-body" id="body-auto">
+          <div class="accordion-body-inner" id="auto-body"></div>
+          <div class="save-bar">
+            <span class="save-status" id="auto-status"></span>
+            <button class="btn-save" onclick="saveAuto()">💾 Guardar Automatizaciones</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- PACIENTES -->
@@ -334,460 +355,544 @@ tbody td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
 // ══════════════════════════════════
 // SUPABASE
 // ══════════════════════════════════
-const SUPABASE_URL = 'https://udizowyfjnhuhgxkeayk.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkaXpvd3lmam5odWhneGtlYXlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NDQ1NDgsImV4cCI6MjA5NTQyMDU0OH0.EGX17VhE0IBlX5K-aqvJeAQ3GDIiDD-w-hXgTyQiaws';
-
-const sb = {
-  async query(table, params='') {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}${params}`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json' }
-    });
-    if (!r.ok) throw new Error(await r.text());
-    return r.json();
-  },
-  async update(table, id, data) {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!r.ok) throw new Error(await r.text());
-    return r.ok;
-  }
+const SUPABASE_URL='https://udizowyfjnhuhgxkeayk.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkaXpvd3lmam5odWhneGtlYXlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NDQ1NDgsImV4cCI6MjA5NTQyMDU0OH0.EGX17VhE0IBlX5K-aqvJeAQ3GDIiDD-w-hXgTyQiaws';
+const sb={
+  async query(t,p=''){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}${p}`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json'}});if(!r.ok)throw new Error(await r.text());return r.json();},
+  async update(t,id,data){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}?id=eq.${id}`,{method:'PATCH',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(data)});if(!r.ok)throw new Error(await r.text());return r.ok;}
 };
 
 // ══════════════════════════════════
-// PROCEDIMENTOS (lista padrão)
+// PROCEDIMENTOS POR ESPECIALIDADE
+// com tempos padrão (minutos) baseados em média real + 5min margem
 // ══════════════════════════════════
-const PROCS_LIST = [
-  'Limpieza dental','Blanqueamiento','Extracción','Ortodoncia',
-  'Implante dental','Endodoncia','Obturación / Caries','Prótesis dental',
-  'Radiografía','Consulta general','Periodoncia','Cirugía oral',
-  'Carillas estéticas','Fluorización','Bruxismo / Férula'
+const ESPECIALIDADES = [
+  { nome:'🦷 Clínico General', procs:[
+    {nome:'Consulta / Evaluación', tempo:30},
+    {nome:'Limpieza dental (profilaxis)', tempo:45},
+    {nome:'Obturación / Caries (1 cara)', tempo:40},
+    {nome:'Obturación / Caries (2+ caras)', tempo:55},
+    {nome:'Extracción simple', tempo:35},
+    {nome:'Fluorización', tempo:25},
+    {nome:'Radiografía', tempo:20},
+  ]},
+  { nome:'🔧 Endodoncia', procs:[
+    {nome:'Canal diente anterior (1 raíz)', tempo:65},
+    {nome:'Canal diente premolar (2 raíces)', tempo:80},
+    {nome:'Canal molar (3+ raíces)', tempo:95},
+    {nome:'Retratamiento de canal', tempo:90},
+  ]},
+  { nome:'📐 Ortodoncia', procs:[
+    {nome:'Consulta ortodoncia', tempo:35},
+    {nome:'Colocación de brackets', tempo:90},
+    {nome:'Ajuste mensual brackets', tempo:30},
+    {nome:'Alineadores (entrega/ajuste)', tempo:35},
+    {nome:'Retención / Retenedor', tempo:40},
+  ]},
+  { nome:'🔩 Implantología', procs:[
+    {nome:'Consulta / Planificación', tempo:40},
+    {nome:'Cirugía de implante', tempo:90},
+    {nome:'Reapertura / 2ª fase', tempo:45},
+    {nome:'Colocación de corona sobre implante', tempo:55},
+    {nome:'Control post-operatorio', tempo:25},
+  ]},
+  { nome:'🦴 Prótesis', procs:[
+    {nome:'Toma de impresión', tempo:40},
+    {nome:'Prueba de estructura', tempo:30},
+    {nome:'Entrega de prótesis removible', tempo:45},
+    {nome:'Entrega de corona fija', tempo:40},
+    {nome:'Ajuste de prótesis', tempo:30},
+  ]},
+  { nome:'🩺 Periodoncia', procs:[
+    {nome:'Raspado supra-gingival', tempo:50},
+    {nome:'Raspado sub-gingival (por cuadrante)', tempo:60},
+    {nome:'Cirugía periodontal', tempo:90},
+    {nome:'Control periodontal', tempo:30},
+  ]},
+  { nome:'✨ Estética', procs:[
+    {nome:'Blanqueamiento en consultorio', tempo:75},
+    {nome:'Carillas de porcelana (prep)', tempo:90},
+    {nome:'Carillas de resina', tempo:60},
+    {nome:'Armonización de sonrisa', tempo:50},
+  ]},
+  { nome:'👶 Odontopediatría', procs:[
+    {nome:'Consulta pediátrica', tempo:35},
+    {nome:'Sellantes', tempo:30},
+    {nome:'Extracción diente de leche', tempo:25},
+    {nome:'Fluorización niños', tempo:20},
+  ]},
+  { nome:'🔪 Cirugía', procs:[
+    {nome:'Extracción compleja / muela juicio', tempo:60},
+    {nome:'Frenectomía', tempo:40},
+    {nome:'Biopsia', tempo:35},
+    {nome:'Cirugía de quiste', tempo:75},
+  ]},
 ];
 
 // ══════════════════════════════════
 // STATE
 // ══════════════════════════════════
-let currentClinica = null;
-let allPacientes = [];
-let allAgendamentos = [];
-let obsPatientId = null;
-// modo por dentista: 'auto' | 'manual'
-const dentModo = ['auto','auto','auto','auto','auto'];
+let currentClinica=null, allPacientes=[], allAgendamentos=[], obsPatientId=null;
+const dentModo=['auto','auto','auto','auto','auto'];
 
 // ══════════════════════════════════
 // TOAST
 // ══════════════════════════════════
-function toast(msg, type='ok') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = `show ${type}`;
-  setTimeout(() => t.className = '', 3000);
-}
+function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className=`show ${type}`;setTimeout(()=>t.className='',3000);}
 
 // ══════════════════════════════════
 // LOGIN
 // ══════════════════════════════════
-async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pass = document.getElementById('login-password').value;
-  const btn = document.getElementById('login-btn');
-  const err = document.getElementById('login-error');
-  err.style.display = 'none';
-  if (!email || !pass) { err.textContent = 'Completa todos los campos'; err.style.display='block'; return; }
-  btn.disabled = true; btn.textContent = 'Ingresando...';
-  try {
-    const rows = await sb.query('clinicas', `?email=eq.${encodeURIComponent(email)}&ativo=eq.true&select=*`);
-    if (!rows.length) throw new Error('not found');
-    const clinica = rows[0];
-    if (clinica.senha_hash !== pass) throw new Error('wrong pass');
-    currentClinica = clinica;
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('header-clinic-name').textContent = clinica.nome;
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-password').value;
+  const btn=document.getElementById('login-btn');
+  const err=document.getElementById('login-error');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Completa todos los campos';err.style.display='block';return;}
+  btn.disabled=true;btn.textContent='Ingresando...';
+  try{
+    const rows=await sb.query('clinicas',`?email=eq.${encodeURIComponent(email)}&ativo=eq.true&select=*`);
+    if(!rows.length)throw new Error('nf');
+    const c=rows[0];
+    if(c.senha_hash!==pass)throw new Error('wp');
+    currentClinica=c;
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('header-clinic-name').textContent=c.nome;
     loadAll();
-  } catch(e) {
-    err.textContent = 'Email o contraseña incorrectos'; err.style.display = 'block';
-  }
-  btn.disabled = false; btn.textContent = 'Ingresar';
+  }catch(e){err.textContent='Email o contraseña incorrectos';err.style.display='block';}
+  btn.disabled=false;btn.textContent='Ingresar';
 }
-document.getElementById('login-password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-
-function doLogout() {
-  currentClinica = null;
-  document.getElementById('login-page').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-password').value = '';
-}
+document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogout(){currentClinica=null;document.getElementById('login-page').style.display='flex';document.getElementById('app').style.display='none';document.getElementById('login-email').value='';document.getElementById('login-password').value='';}
 
 // ══════════════════════════════════
 // TABS
 // ══════════════════════════════════
-function showTab(name, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+function showTab(name,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`tab-${name}`).classList.add('active');
   btn.classList.add('active');
 }
 
 // ══════════════════════════════════
-// LOAD ALL
+// ACCORDION
 // ══════════════════════════════════
-async function loadAll() { loadConfig(); loadPacientes(); loadAgendamentos(); }
-
-// ══════════════════════════════════
-// CONFIG / DENTISTAS
-// ══════════════════════════════════
-function loadConfig() {
-  const c = currentClinica;
-  document.getElementById('c_nome').value = c.nome || '';
-  document.getElementById('c_tel').value = c.telefone || '';
-  document.getElementById('c_end').value = c.endereco || '';
-  document.getElementById('c_bairro').value = c.bairro || '';
-  document.getElementById('c_cidade').value = c.cidade || '';
-  document.getElementById('c_cep').value = c.cep || '';
-  document.getElementById('c_wp').value = c.whatsapp_instancia || '';
-  renderDentistas(c.dentistas || []);
+function toggleAcc(id){
+  const body=document.getElementById(`body-${id}`);
+  const arr=document.getElementById(`arr-${id}`);
+  body.classList.toggle('open');
+  arr.classList.toggle('open');
 }
 
-function calcSlots(ini, fim, dur, almIni, almFim) {
-  if (!ini || !fim || !dur) return [];
-  const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
-  const toStr = m => `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
-  const start = toMin(ini), end = toMin(fim), d = parseInt(dur);
-  const aIni = almIni ? toMin(almIni) : -1, aFim = almFim ? toMin(almFim) : -1;
-  if (isNaN(d) || d <= 0 || start >= end) return [];
-  const slots = [];
-  for (let t = start; t + d <= end; t += d) {
-    if (aIni > 0 && t < aFim && t + d > aIni) { t = aFim - d; continue; }
+// ══════════════════════════════════
+// LOAD ALL
+// ══════════════════════════════════
+async function loadAll(){loadConfig();loadPacientes();loadAgendamentos();}
+
+// ══════════════════════════════════
+// CONFIG
+// ══════════════════════════════════
+function loadConfig(){
+  const c=currentClinica;
+  document.getElementById('c_nome').value=c.nome||'';
+  document.getElementById('c_tel').value=c.telefone||'';
+  document.getElementById('c_end').value=c.endereco||'';
+  document.getElementById('c_bairro').value=c.bairro||'';
+  document.getElementById('c_cidade').value=c.cidade||'';
+  document.getElementById('c_cep').value=c.cep||'';
+  document.getElementById('c_wp').value=c.whatsapp_instancia||'';
+  renderDentistas(c.dentistas||[]);
+  renderAuto(c.automatizacoes||{});
+}
+
+async function saveConfig(){
+  const btn=document.querySelector('[onclick="saveConfig()"]');
+  const st=document.getElementById('cfg-status');
+  btn.disabled=true;st.textContent='Guardando...';st.className='save-status';
+  try{
+    await sb.update('clinicas',currentClinica.id,{
+      nome:document.getElementById('c_nome').value,
+      telefone:document.getElementById('c_tel').value,
+      endereco:document.getElementById('c_end').value,
+      bairro:document.getElementById('c_bairro').value,
+      cidade:document.getElementById('c_cidade').value,
+      cep:document.getElementById('c_cep').value,
+      whatsapp_instancia:document.getElementById('c_wp').value,
+    });
+    st.textContent='✓ Guardado';st.className='save-status ok';toast('Configuración guardada ✓');
+  }catch(e){st.textContent='✗ Error';st.className='save-status err';toast('Error al guardar','err');}
+  btn.disabled=false;
+}
+
+// ══════════════════════════════════
+// DENTISTAS
+// ══════════════════════════════════
+function calcSlots(ini,fim,dur,almIni,almFim){
+  if(!ini||!fim||!dur)return[];
+  const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;};
+  const toStr=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+  const start=toMin(ini),end=toMin(fim),d=parseInt(dur);
+  const aI=almIni?toMin(almIni):-1,aF=almFim?toMin(almFim):-1;
+  if(isNaN(d)||d<=0||start>=end)return[];
+  const slots=[];
+  for(let t=start;t+d<=end;t+=d){
+    if(aI>0&&t<aF&&t+d>aI){t=aF-d;continue;}
     slots.push(toStr(t));
   }
   return slots;
 }
 
-function renderDentistas(dents) {
-  const body = document.getElementById('dentistas-body');
-  const list = Array.isArray(dents) ? dents : [];
-  const slots = Array.from({length:5}, (_,i) => list[i] || {
-    nome:'', calendar_id:'', ativo:false,
-    inicio:'08:00', fim:'18:00', dur:60,
-    alm_ini:'12:00', alm_fim:'13:00',
-    sabado:false, horarios:'', procedimentos:[]
-  });
-
-  body.innerHTML = slots.map((d,i) => {
-    const modo = dentModo[i];
-    const procsArr = Array.isArray(d.procedimentos)
-      ? d.procedimentos
-      : (typeof d.procedimentos === 'string' && d.procedimentos
-          ? d.procedimentos.split(',').map(s=>s.trim()).filter(Boolean)
-          : []);
-    const autoSlots = calcSlots(d.inicio||'08:00', d.fim||'18:00', d.dur||60, d.alm_ini||'12:00', d.alm_fim||'13:00');
-    const slotsHtml = modo === 'auto'
-      ? (autoSlots.length
-          ? autoSlots.map(s=>`<span class="slot-chip">${s}</span>`).join('')
-          : `<span class="slots-empty">Completa los campos de horario</span>`)
-      : '';
-
+function renderDentistas(dents){
+  const body=document.getElementById('dentistas-body');
+  const list=Array.isArray(dents)?dents:[];
+  const slots=Array.from({length:5},(_,i)=>list[i]||{nome:'',calendar_id:'',ativo:false,inicio:'08:00',fim:'18:00',dur:60,alm_ini:'12:00',alm_fim:'13:00',sabado:false,horarios:'',modo:'auto',procedimentos:[]});
+  body.innerHTML=slots.map((d,i)=>{
+    const modo=d.modo||'auto';
+    dentModo[i]=modo;
+    const procsMap={};
+    if(Array.isArray(d.procedimentos)){
+      d.procedimentos.forEach(p=>{if(p&&p.nome)procsMap[p.nome]={ativo:p.ativo!==false,tempo:p.tempo||30};});
+    }
+    const autoSlots=calcSlots(d.inicio||'08:00',d.fim||'18:00',d.dur||60,d.alm_ini||'12:00',d.alm_fim||'13:00');
+    const slotsHtml=autoSlots.length?autoSlots.map(s=>`<span class="slot-chip">${s}</span>`).join(''):`<span class="slots-empty">Completa los campos de horario</span>`;
+    const specHtml=ESPECIALIDADES.map((esp,ei)=>`
+      <div class="spec-accordion">
+        <div class="spec-header" onclick="toggleSpec(${i},${ei})">
+          ${esp.nome}
+          <span class="spec-arrow" id="specarr-${i}-${ei}">▼</span>
+        </div>
+        <div class="spec-body" id="specbody-${i}-${ei}">
+          ${esp.procs.map(p=>{
+            const saved=procsMap[p.nome];
+            const ativo=saved?saved.ativo:false;
+            const tempo=saved?saved.tempo:p.tempo;
+            return `<div class="proc-row">
+              <input type="checkbox" class="proc-check" id="pc-${i}-${p.nome.replace(/\s/g,'_')}" ${ativo?'checked':''}>
+              <span class="proc-name">${p.nome}</span>
+              <div class="proc-time-wrap">
+                <button class="proc-time-btn" onclick="adjTime(this,-5)">−</button>
+                <input type="number" class="proc-time" id="pt-${i}-${p.nome.replace(/\s/g,'_')}" value="${tempo}" min="5" step="5">
+                <button class="proc-time-btn" onclick="adjTime(this,5)">+</button>
+                <span class="proc-time-label">min</span>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`).join('');
     return `
-    <div class="dentist-card" id="dcard-${i}">
-      <div class="dentist-toggle">
-        <span class="toggle-label">Dentista ${i+1}</span>
-        <div class="toggle ${d.ativo?'on':''}" id="dent-toggle-${i}" onclick="toggleDentista(${i})"></div>
+    <div class="dent-accordion" id="dacc-${i}">
+      <div class="dent-accordion-header ${d.ativo?'has-active':''}" onclick="toggleDentAcc(${i})">
+        <span style="font-size:20px">👨‍⚕️</span>
+        <span class="dent-name-label" id="dname-label-${i}">${d.nome||`Dentista ${i+1}`}</span>
+        <div class="toggle ${d.ativo?'on':''}" id="dent-toggle-${i}" onclick="event.stopPropagation();toggleDentista(${i})"></div>
+        <span class="dent-accordion-arrow" id="darr-${i}">▼</span>
       </div>
-      <div class="form-grid cols-3">
-        <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre"></div>
-        <div class="form-group full"><label>Calendar ID <span style="font-weight:400;color:var(--text3)">(Google Calendar)</span></label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
-        <div class="form-group">
-          <label>Horario de inicio</label>
-          <input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})">
+      <div class="dent-accordion-body" id="dbody-${i}">
+        <div class="form-grid cols-3" style="margin-bottom:16px">
+          <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre" oninput="document.getElementById('dname-label-${i}').textContent=this.value||'Dentista ${i+1}'"></div>
+          <div class="form-group full"><label>Calendar ID</label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
+          <div class="form-group"><label>Inicio</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Fin</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Almuerzo inicio</label><input type="time" id="d${i}_alm_ini" value="${d.alm_ini||'12:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Almuerzo fin</label><input type="time" id="d${i}_alm_fim" value="${d.alm_fim||'13:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Atiende sábado</label><select id="d${i}_sab"><option value="no" ${!d.sabado?'selected':''}>No</option><option value="si" ${d.sabado?'selected':''}>Sí</option></select></div>
         </div>
-        <div class="form-group">
-          <label>Horario de fin</label>
-          <input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})">
-        </div>
-        <div class="form-group">
-          <label>Duración (min)</label>
-          <input type="number" id="d${i}_dur" value="${d.dur||60}" min="10" max="240" oninput="updateSlots(${i})">
-        </div>
-        <div class="form-group">
-          <label>Almuerzo inicio</label>
-          <input type="time" id="d${i}_alm_ini" value="${d.alm_ini||'12:00'}" oninput="updateSlots(${i})">
-        </div>
-        <div class="form-group">
-          <label>Almuerzo fin</label>
-          <input type="time" id="d${i}_alm_fim" value="${d.alm_fim||'13:00'}" oninput="updateSlots(${i})">
-        </div>
-        <div class="form-group">
-          <label>Atiende sábado</label>
-          <select id="d${i}_sab">
-            <option value="no" ${!d.sabado?'selected':''}>No</option>
-            <option value="si" ${d.sabado?'selected':''}>Sí</option>
-          </select>
-        </div>
-      </div>
 
-      <!-- MODO HORARIOS -->
-      <div style="margin-top:16px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-          <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;">Horarios disponibles</label>
-          <div class="mode-toggle" id="mode-toggle-${i}">
-            <button class="mode-btn ${modo==='auto'?'active':''}" onclick="setModo(${i},'auto')">⚡ Automático</button>
-            <button class="mode-btn ${modo==='manual'?'active':''}" onclick="setModo(${i},'manual')">✏️ Manual</button>
+        <!-- MODO HORARIOS -->
+        <div style="margin-bottom:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px">Modo de horarios</label>
+            <div class="mode-toggle" id="modetog-${i}">
+              <button class="mode-btn ${modo==='auto'?'active':''}" onclick="setModo(${i},'auto')">⚡ Automático</button>
+              <button class="mode-btn ${modo==='manual'?'active':''}" onclick="setModo(${i},'manual')">✏️ Manual</button>
+              <button class="mode-btn ${modo==='proc'?'active':''}" onclick="setModo(${i},'proc')">🦷 Por procedimiento</button>
+            </div>
+          </div>
+          <div id="mode-auto-${i}" style="${modo==='auto'?'':'display:none'}">
+            <div style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+              <div class="form-group" style="flex:0 0 130px"><label>Duración (min)</label><input type="number" id="d${i}_dur" value="${d.dur||60}" min="5" step="5" oninput="updateSlots(${i})"></div>
+              <div style="flex:1">
+                <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Slots generados:</div>
+                <div class="slots-preview" id="slots-preview-${i}">${slotsHtml}</div>
+              </div>
+            </div>
+          </div>
+          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none'}">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Escribe los horarios separados por coma:</div>
+            <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
+          </div>
+          <div id="mode-proc-${i}" style="${modo==='proc'?'':'display:none'}">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:8px">Los horarios se calcularán según la duración de cada procedimiento.</div>
           </div>
         </div>
 
-        <div id="slots-auto-${i}" style="${modo==='auto'?'':'display:none'}">
-          <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">Slots generados automáticamente según inicio/fin/duración/almuerzo:</div>
-          <div class="slots-preview" id="slots-preview-${i}">${slotsHtml}</div>
-        </div>
-
-        <div id="slots-manual-${i}" style="${modo==='manual'?'':'display:none'}">
-          <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">Escribe los horarios separados por coma:</div>
-          <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
-        </div>
-      </div>
-
-      <!-- PROCEDIMENTOS -->
-      <div style="margin-top:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:10px;">Procedimientos que atiende</label>
-        <div class="procs-grid" id="procs-grid-${i}">
-          ${PROCS_LIST.map(p => `
-            <label class="proc-chip ${procsArr.includes(p)?'selected':''}" onclick="toggleProc(${i},'${p}',this)">
-              <input type="checkbox" ${procsArr.includes(p)?'checked':''}> ${p}
-            </label>
-          `).join('')}
+        <!-- PROCEDIMENTOS -->
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:10px">Procedimientos que atiende</label>
+          <div id="specs-${i}">${specHtml}</div>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function toggleDentista(i) {
-  document.getElementById(`dent-toggle-${i}`).classList.toggle('on');
+function toggleDentAcc(i){
+  const b=document.getElementById(`dbody-${i}`);
+  const a=document.getElementById(`darr-${i}`);
+  b.classList.toggle('open');
+  a.classList.toggle('open');
 }
 
-function setModo(i, modo) {
-  dentModo[i] = modo;
-  const mt = document.getElementById(`mode-toggle-${i}`);
-  mt.querySelectorAll('.mode-btn').forEach((b,j) => {
-    b.classList.toggle('active', (j===0 && modo==='auto') || (j===1 && modo==='manual'));
+function toggleDentista(i){
+  const t=document.getElementById(`dent-toggle-${i}`);
+  const h=document.getElementById(`dacc-${i}`).querySelector('.dent-accordion-header');
+  t.classList.toggle('on');
+  h.classList.toggle('has-active',t.classList.contains('on'));
+}
+
+function toggleSpec(di,ei){
+  const b=document.getElementById(`specbody-${di}-${ei}`);
+  const a=document.getElementById(`specarr-${di}-${ei}`);
+  b.classList.toggle('open');
+  a.classList.toggle('open');
+}
+
+function setModo(i,modo){
+  dentModo[i]=modo;
+  ['auto','manual','proc'].forEach(m=>{
+    document.getElementById(`mode-${m}-${i}`).style.display=m===modo?'':'none';
   });
-  document.getElementById(`slots-auto-${i}`).style.display = modo==='auto' ? '' : 'none';
-  document.getElementById(`slots-manual-${i}`).style.display = modo==='manual' ? '' : 'none';
+  document.getElementById(`modetog-${i}`).querySelectorAll('.mode-btn').forEach((b,j)=>{
+    b.classList.toggle('active',['auto','manual','proc'][j]===modo);
+  });
+  if(modo==='auto')updateSlots(i);
 }
 
-function updateSlots(i) {
-  if (dentModo[i] !== 'auto') return;
-  const ini = document.getElementById(`d${i}_ini`)?.value;
-  const fim = document.getElementById(`d${i}_fim`)?.value;
-  const dur = document.getElementById(`d${i}_dur`)?.value;
-  const almIni = document.getElementById(`d${i}_alm_ini`)?.value;
-  const almFim = document.getElementById(`d${i}_alm_fim`)?.value;
-  const slots = calcSlots(ini, fim, dur, almIni, almFim);
-  const preview = document.getElementById(`slots-preview-${i}`);
-  if (!preview) return;
-  preview.innerHTML = slots.length
-    ? slots.map(s=>`<span class="slot-chip">${s}</span>`).join('')
-    : `<span class="slots-empty">Completa los campos de horario</span>`;
+function updateSlots(i){
+  if(dentModo[i]!=='auto')return;
+  const ini=document.getElementById(`d${i}_ini`)?.value;
+  const fim=document.getElementById(`d${i}_fim`)?.value;
+  const dur=document.getElementById(`d${i}_dur`)?.value;
+  const aI=document.getElementById(`d${i}_alm_ini`)?.value;
+  const aF=document.getElementById(`d${i}_alm_fim`)?.value;
+  const slots=calcSlots(ini,fim,dur,aI,aF);
+  const p=document.getElementById(`slots-preview-${i}`);
+  if(!p)return;
+  p.innerHTML=slots.length?slots.map(s=>`<span class="slot-chip">${s}</span>`).join(''):`<span class="slots-empty">Completa los campos de horario</span>`;
 }
 
-function toggleProc(i, proc, el) {
-  el.classList.toggle('selected');
+function adjTime(btn,delta){
+  const input=btn.parentElement.querySelector('.proc-time');
+  const v=parseInt(input.value)||5;
+  input.value=Math.max(5,v+delta);
 }
 
-function getSelectedProcs(i) {
-  const grid = document.getElementById(`procs-grid-${i}`);
-  if (!grid) return [];
-  return [...grid.querySelectorAll('.proc-chip.selected')].map(el => el.textContent.trim());
-}
-
-async function saveConfig() {
-  const btn = document.querySelector('[onclick="saveConfig()"]');
-  const st = document.getElementById('cfg-status');
-  btn.disabled = true; st.textContent = 'Guardando...'; st.className = 'save-status';
-  try {
-    await sb.update('clinicas', currentClinica.id, {
-      nome: document.getElementById('c_nome').value,
-      telefone: document.getElementById('c_tel').value,
-      endereco: document.getElementById('c_end').value,
-      bairro: document.getElementById('c_bairro').value,
-      cidade: document.getElementById('c_cidade').value,
-      cep: document.getElementById('c_cep').value,
-      whatsapp_instancia: document.getElementById('c_wp').value,
+function getProcs(i){
+  const procs=[];
+  ESPECIALIDADES.forEach(esp=>{
+    esp.procs.forEach(p=>{
+      const key=p.nome.replace(/\s/g,'_');
+      const cb=document.getElementById(`pc-${i}-${key}`);
+      const ti=document.getElementById(`pt-${i}-${key}`);
+      if(cb)procs.push({nome:p.nome,ativo:cb.checked,tempo:parseInt(ti?.value)||p.tempo});
     });
-    st.textContent = '✓ Guardado'; st.className = 'save-status ok';
-    toast('Configuración guardada ✓');
-  } catch(e) {
-    st.textContent = '✗ Error'; st.className = 'save-status err';
-    toast('Error al guardar', 'err');
-  }
-  btn.disabled = false;
+  });
+  return procs;
 }
 
-async function saveDentistas() {
-  const btn = document.querySelector('[onclick="saveDentistas()"]');
-  const st = document.getElementById('dent-status');
-  btn.disabled = true; st.textContent = 'Guardando...'; st.className = 'save-status';
-
-  const dents = Array.from({length:5}, (_,i) => {
-    const modo = dentModo[i];
-    let horarios = '';
-    if (modo === 'auto') {
-      const ini = document.getElementById(`d${i}_ini`)?.value;
-      const fim = document.getElementById(`d${i}_fim`)?.value;
-      const dur = document.getElementById(`d${i}_dur`)?.value;
-      const almIni = document.getElementById(`d${i}_alm_ini`)?.value;
-      const almFim = document.getElementById(`d${i}_alm_fim`)?.value;
-      horarios = calcSlots(ini, fim, dur, almIni, almFim).join(',');
-    } else {
-      horarios = document.getElementById(`d${i}_horarios`)?.value || '';
+async function saveDentistas(){
+  const btn=document.querySelector('[onclick="saveDentistas()"]');
+  const st=document.getElementById('dent-status');
+  btn.disabled=true;st.textContent='Guardando...';st.className='save-status';
+  const dents=Array.from({length:5},(_,i)=>{
+    const modo=dentModo[i];
+    let horarios='';
+    if(modo==='auto'){
+      horarios=calcSlots(document.getElementById(`d${i}_ini`)?.value,document.getElementById(`d${i}_fim`)?.value,document.getElementById(`d${i}_dur`)?.value,document.getElementById(`d${i}_alm_ini`)?.value,document.getElementById(`d${i}_alm_fim`)?.value).join(',');
+    }else if(modo==='manual'){
+      horarios=document.getElementById(`d${i}_horarios`)?.value||'';
     }
-    return {
-      nome: document.getElementById(`d${i}_nome`)?.value || '',
-      calendar_id: document.getElementById(`d${i}_cal`)?.value || '',
-      ativo: document.getElementById(`dent-toggle-${i}`)?.classList.contains('on') || false,
-      inicio: document.getElementById(`d${i}_ini`)?.value || '08:00',
-      fim: document.getElementById(`d${i}_fim`)?.value || '18:00',
-      dur: parseInt(document.getElementById(`d${i}_dur`)?.value) || 60,
-      alm_ini: document.getElementById(`d${i}_alm_ini`)?.value || '12:00',
-      alm_fim: document.getElementById(`d${i}_alm_fim`)?.value || '13:00',
-      sabado: document.getElementById(`d${i}_sab`)?.value === 'si',
-      horarios,
-      modo,
-      procedimentos: getSelectedProcs(i),
+    return{
+      nome:document.getElementById(`d${i}_nome`)?.value||'',
+      calendar_id:document.getElementById(`d${i}_cal`)?.value||'',
+      ativo:document.getElementById(`dent-toggle-${i}`)?.classList.contains('on')||false,
+      inicio:document.getElementById(`d${i}_ini`)?.value||'08:00',
+      fim:document.getElementById(`d${i}_fim`)?.value||'18:00',
+      dur:parseInt(document.getElementById(`d${i}_dur`)?.value)||60,
+      alm_ini:document.getElementById(`d${i}_alm_ini`)?.value||'12:00',
+      alm_fim:document.getElementById(`d${i}_alm_fim`)?.value||'13:00',
+      sabado:document.getElementById(`d${i}_sab`)?.value==='si',
+      horarios,modo,
+      procedimentos:getProcs(i),
     };
   });
+  try{
+    await sb.update('clinicas',currentClinica.id,{dentistas:dents});
+    currentClinica.dentistas=dents;
+    st.textContent='✓ Guardado';st.className='save-status ok';toast('Dentistas guardados ✓');
+  }catch(e){st.textContent='✗ Error';st.className='save-status err';toast('Error al guardar','err');}
+  btn.disabled=false;
+}
 
-  try {
-    await sb.update('clinicas', currentClinica.id, { dentistas: dents });
-    currentClinica.dentistas = dents;
-    st.textContent = '✓ Guardado'; st.className = 'save-status ok';
-    toast('Dentistas guardados ✓');
-  } catch(e) {
-    st.textContent = '✗ Error'; st.className = 'save-status err';
-    toast('Error al guardar', 'err');
-  }
-  btn.disabled = false;
+// ══════════════════════════════════
+// AUTOMAÇÕES
+// ══════════════════════════════════
+function renderAuto(a){
+  document.getElementById('auto-body').innerHTML=`
+  <div class="accordion-body-inner" style="padding-top:8px">
+    <div class="auto-item">
+      <div class="auto-info">
+        <div class="auto-title">🔔 Recordatorio 2 horas antes</div>
+        <div class="auto-sub">Envía un mensaje automático 2 horas antes de cada consulta</div>
+      </div>
+      <div class="toggle ${a.lembrete_2h?'on':''}" id="auto-lembrete_2h" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="auto-item">
+      <div class="auto-info">
+        <div class="auto-title">🔔 Recordatorio 24 horas antes</div>
+        <div class="auto-sub">Envía un mensaje automático 1 día antes de la consulta</div>
+      </div>
+      <div class="toggle ${a.lembrete_24h?'on':''}" id="auto-lembrete_24h" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="auto-item">
+      <div class="auto-info">
+        <div class="auto-title">⭐ Post-consulta</div>
+        <div class="auto-sub">Pregunta cómo fue la consulta al día siguiente</div>
+      </div>
+      <div class="toggle ${a.pos_consulta?'on':''}" id="auto-pos_consulta" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="auto-item">
+      <div class="auto-info">
+        <div class="auto-title">🔄 Retorno automático</div>
+        <div class="auto-sub">Recuerda al paciente agendar retorno después de X meses</div>
+        <div class="auto-extra">
+          <input type="number" id="auto-retorno_meses" value="${a.retorno_meses||6}" min="1" max="24">
+          <label>meses</label>
+        </div>
+      </div>
+      <div class="toggle ${a.retorno?'on':''}" id="auto-retorno" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="auto-item">
+      <div class="auto-info">
+        <div class="auto-title">⏳ Lista de espera</div>
+        <div class="auto-sub">Avisa al paciente cuando un horario cancelado queda disponible</div>
+      </div>
+      <div class="toggle ${a.lista_espera?'on':''}" id="auto-lista_espera" onclick="this.classList.toggle('on')"></div>
+    </div>
+  </div>`;
+}
+
+async function saveAuto(){
+  const btn=document.querySelector('[onclick="saveAuto()"]');
+  const st=document.getElementById('auto-status');
+  btn.disabled=true;st.textContent='Guardando...';st.className='save-status';
+  const data={
+    lembrete_2h:document.getElementById('auto-lembrete_2h')?.classList.contains('on')||false,
+    lembrete_24h:document.getElementById('auto-lembrete_24h')?.classList.contains('on')||false,
+    pos_consulta:document.getElementById('auto-pos_consulta')?.classList.contains('on')||false,
+    retorno:document.getElementById('auto-retorno')?.classList.contains('on')||false,
+    retorno_meses:parseInt(document.getElementById('auto-retorno_meses')?.value)||6,
+    lista_espera:document.getElementById('auto-lista_espera')?.classList.contains('on')||false,
+  };
+  try{
+    await sb.update('clinicas',currentClinica.id,{automatizacoes:data});
+    currentClinica.automatizacoes=data;
+    st.textContent='✓ Guardado';st.className='save-status ok';toast('Automatizaciones guardadas ✓');
+  }catch(e){st.textContent='✗ Error';st.className='save-status err';toast('Error al guardar','err');}
+  btn.disabled=false;
 }
 
 // ══════════════════════════════════
 // PACIENTES
 // ══════════════════════════════════
-async function loadPacientes() {
-  try {
-    allPacientes = await sb.query('pacientes', `?clinica_id=eq.${currentClinica.id}&order=nome.asc`);
-    document.getElementById('badge-pac').textContent = allPacientes.length;
+async function loadPacientes(){
+  try{
+    allPacientes=await sb.query('pacientes',`?clinica_id=eq.${currentClinica.id}&order=nome.asc`);
+    document.getElementById('badge-pac').textContent=allPacientes.length;
     renderPacientes(allPacientes);
-  } catch(e) {
-    document.getElementById('pac-table-wrap').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar pacientes</p></div>';
-  }
+  }catch(e){document.getElementById('pac-table-wrap').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar pacientes</p></div>';}
 }
-
-function renderPacientes(list) {
-  const wrap = document.getElementById('pac-table-wrap');
-  if (!list.length) { wrap.innerHTML = '<div class="empty"><div class="empty-icon">👤</div><p>No hay pacientes registrados aún</p></div>'; return; }
-  wrap.innerHTML = `<table>
-    <thead><tr><th>Nombre</th><th>Teléfono</th><th>Documento</th><th>Última Consulta</th><th>Total</th><th>Procedimiento</th><th>Obs.</th></tr></thead>
-    <tbody>${list.map(p => `<tr>
-      <td><b>${p.nome||'—'}</b></td>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${p.telefone||'—'}</td>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${p.documento||'—'}</td>
-      <td>${p.ultima_consulta||'—'}</td>
-      <td><span class="badge confirmado">${p.total_consultas||0}</span></td>
-      <td>${p.procedimento||'—'}</td>
-      <td><button class="obs-btn" onclick="openObs('${p.id}','${(p.observacoes||'').replace(/'/g,"\\'")}')">
-        ${p.observacoes ? '📝' : '➕'} Notas
-      </button></td>
-    </tr>`).join('')}</tbody>
-  </table>`;
+function renderPacientes(list){
+  const wrap=document.getElementById('pac-table-wrap');
+  if(!list.length){wrap.innerHTML='<div class="empty"><div class="empty-icon">👤</div><p>No hay pacientes registrados aún</p></div>';return;}
+  wrap.innerHTML=`<table><thead><tr><th>Nombre</th><th>Teléfono</th><th>Documento</th><th>Última Consulta</th><th>Total</th><th>Procedimiento</th><th>Obs.</th></tr></thead><tbody>${list.map(p=>`<tr>
+    <td><b>${p.nome||'—'}</b></td>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${p.telefone||'—'}</td>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${p.documento||'—'}</td>
+    <td>${p.ultima_consulta||'—'}</td>
+    <td><span class="badge confirmado">${p.total_consultas||0}</span></td>
+    <td>${p.procedimento||'—'}</td>
+    <td><button class="obs-btn" onclick="openObs('${p.id}','${(p.observacoes||'').replace(/'/g,"\\'")}')">
+      ${p.observacoes?'📝':'➕'} Notas</button></td>
+  </tr>`).join('')}</tbody></table>`;
 }
-
-function filterPacientes() {
-  const q = document.getElementById('search-pac').value.toLowerCase();
-  renderPacientes(allPacientes.filter(p =>
-    (p.nome||'').toLowerCase().includes(q) || (p.telefone||'').includes(q) || (p.documento||'').includes(q)
-  ));
+function filterPacientes(){
+  const q=document.getElementById('search-pac').value.toLowerCase();
+  renderPacientes(allPacientes.filter(p=>(p.nome||'').toLowerCase().includes(q)||(p.telefone||'').includes(q)||(p.documento||'').includes(q)));
 }
 
 // ══════════════════════════════════
 // AGENDAMENTOS
 // ══════════════════════════════════
-async function loadAgendamentos() {
-  try {
-    allAgendamentos = await sb.query('agendamentos', `?clinica_id=eq.${currentClinica.id}&order=data.desc,horario.desc`);
-    document.getElementById('badge-ag').textContent = allAgendamentos.length;
+async function loadAgendamentos(){
+  try{
+    allAgendamentos=await sb.query('agendamentos',`?clinica_id=eq.${currentClinica.id}&order=data.desc,horario.desc`);
+    document.getElementById('badge-ag').textContent=allAgendamentos.length;
     renderAgendamentos(allAgendamentos);
-  } catch(e) {
-    document.getElementById('ag-table-wrap').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar agendamientos</p></div>';
-  }
+  }catch(e){document.getElementById('ag-table-wrap').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar agendamientos</p></div>';}
 }
-
-function renderAgendamentos(list) {
-  const wrap = document.getElementById('ag-table-wrap');
-  if (!list.length) { wrap.innerHTML = '<div class="empty"><div class="empty-icon">📅</div><p>No hay agendamientos registrados aún</p></div>'; return; }
-  wrap.innerHTML = `<table>
-    <thead><tr><th>Fecha</th><th>Hora</th><th>Paciente</th><th>Procedimiento</th><th>Dentista</th><th>Estado</th><th>Acción</th></tr></thead>
-    <tbody>${list.map(a => `<tr>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.data||'—'}</td>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.horario||'—'}</td>
-      <td><b>${a.nome||'—'}</b><br><span style="color:var(--text2);font-size:11px">${a.telefone||''}</span></td>
-      <td>${a.procedimento||'—'}</td>
-      <td>${a.dentista||'—'}</td>
-      <td><span class="badge ${a.status||'confirmado'}">${a.status||'confirmado'}</span></td>
-      <td>
-        <select class="status-select" onchange="updateStatus('${a.id}',this.value)">
-          <option value="">Cambiar...</option>
-          <option value="confirmado">Confirmado</option>
-          <option value="ok">✓ OK</option>
-          <option value="falto">✗ Falto</option>
-          <option value="cancelado">Cancelado</option>
-          <option value="remarcado">Remarcado</option>
-        </select>
-      </td>
-    </tr>`).join('')}</tbody>
-  </table>`;
+function renderAgendamentos(list){
+  const wrap=document.getElementById('ag-table-wrap');
+  if(!list.length){wrap.innerHTML='<div class="empty"><div class="empty-icon">📅</div><p>No hay agendamientos registrados aún</p></div>';return;}
+  wrap.innerHTML=`<table><thead><tr><th>Fecha</th><th>Hora</th><th>Paciente</th><th>Procedimiento</th><th>Dentista</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${list.map(a=>`<tr>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.data||'—'}</td>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.horario||'—'}</td>
+    <td><b>${a.nome||'—'}</b><br><span style="color:var(--text2);font-size:11px">${a.telefone||''}</span></td>
+    <td>${a.procedimento||'—'}</td>
+    <td>${a.dentista||'—'}</td>
+    <td><span class="badge ${a.status||'confirmado'}">${a.status||'confirmado'}</span></td>
+    <td><select class="status-select" onchange="updateStatus('${a.id}',this.value)">
+      <option value="">Cambiar...</option>
+      <option value="confirmado">Confirmado</option>
+      <option value="ok">✓ OK</option>
+      <option value="falto">✗ Falto</option>
+      <option value="cancelado">Cancelado</option>
+      <option value="remarcado">Remarcado</option>
+    </select></td>
+  </tr>`).join('')}</tbody></table>`;
 }
-
-function filterAgendamentos() {
-  const q = document.getElementById('search-ag').value.toLowerCase();
-  const st = document.getElementById('filter-status').value;
-  renderAgendamentos(allAgendamentos.filter(a =>
-    (!q || (a.nome||'').toLowerCase().includes(q) || (a.data||'').includes(q) || (a.dentista||'').toLowerCase().includes(q)) &&
-    (!st || a.status === st)
-  ));
+function filterAgendamentos(){
+  const q=document.getElementById('search-ag').value.toLowerCase();
+  const st=document.getElementById('filter-status').value;
+  renderAgendamentos(allAgendamentos.filter(a=>(!q||(a.nome||'').toLowerCase().includes(q)||(a.data||'').includes(q)||(a.dentista||'').toLowerCase().includes(q))&&(!st||a.status===st)));
 }
-
-async function updateStatus(id, status) {
-  if (!status) return;
-  try {
-    await sb.update('agendamentos', id, { status });
-    const idx = allAgendamentos.findIndex(a => a.id === id);
-    if (idx !== -1) allAgendamentos[idx].status = status;
+async function updateStatus(id,status){
+  if(!status)return;
+  try{
+    await sb.update('agendamentos',id,{status});
+    const idx=allAgendamentos.findIndex(a=>a.id===id);
+    if(idx!==-1)allAgendamentos[idx].status=status;
     toast(`Estado actualizado: ${status} ✓`);
     filterAgendamentos();
-  } catch(e) { toast('Error al actualizar estado', 'err'); }
+  }catch(e){toast('Error al actualizar estado','err');}
 }
 
 // ══════════════════════════════════
 // OBSERVACIONES
 // ══════════════════════════════════
-function openObs(id, obs) {
-  obsPatientId = id;
-  document.getElementById('obs-text').value = obs || '';
-  document.getElementById('obs-modal').style.display = 'flex';
-}
-function closeObs() { document.getElementById('obs-modal').style.display = 'none'; obsPatientId = null; }
-async function saveObs() {
-  const obs = document.getElementById('obs-text').value;
-  try {
-    await sb.update('pacientes', obsPatientId, { observacoes: obs });
-    const idx = allPacientes.findIndex(p => p.id === obsPatientId);
-    if (idx !== -1) allPacientes[idx].observacoes = obs;
-    toast('Observación guardada ✓');
-    closeObs(); renderPacientes(allPacientes);
-  } catch(e) { toast('Error al guardar', 'err'); }
+function openObs(id,obs){obsPatientId=id;document.getElementById('obs-text').value=obs||'';document.getElementById('obs-modal').style.display='flex';}
+function closeObs(){document.getElementById('obs-modal').style.display='none';obsPatientId=null;}
+async function saveObs(){
+  const obs=document.getElementById('obs-text').value;
+  try{
+    await sb.update('pacientes',obsPatientId,{observacoes:obs});
+    const idx=allPacientes.findIndex(p=>p.id===obsPatientId);
+    if(idx!==-1)allPacientes[idx].observacoes=obs;
+    toast('Observación guardada ✓');closeObs();renderPacientes(allPacientes);
+  }catch(e){toast('Error al guardar','err');}
 }
 </script>
 </body>
