@@ -405,6 +405,18 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
   </div>
 </div>
 
+<!-- MODAL OBSERVACIONES -->
+<div class="modal-bg" id="obs-modal" style="display:none">
+  <div class="modal">
+    <h3>📝 Observaciones del Paciente</h3>
+    <textarea id="obs-text" placeholder="Escribe aquí notas sobre este paciente..."></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeObs()">Cancelar</button>
+      <button class="btn-ok" onclick="saveObs()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL QR CODE -->
 <div class="modal-bg" id="qr-modal" style="display:none">
   <div class="qr-modal">
@@ -1293,44 +1305,25 @@ function renderDappConfig(){
   const d=currentDentista;
   const body=document.getElementById('dapp-config-body');
   body.innerHTML=`
-    <div class="accordion" style="margin-top:8px">
-      <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-        <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Mi Configuración</div>
-        <div class="form-grid" style="margin-bottom:12px">
-          <div class="form-group">
-            <label>Apertura</label>
-            <input type="time" id="dc_ini" value="${d.inicio||'08:00'}">
-          </div>
-          <div class="form-group">
-            <label>Cierre</label>
-            <input type="time" id="dc_fim" value="${d.fim||'18:00'}">
-          </div>
-          <div class="form-group">
-            <label>Almuerzo inicio</label>
-            <input type="time" id="dc_alm_ini" value="${d.alm_ini||'12:00'}">
-          </div>
-          <div class="form-group">
-            <label>Almuerzo fin</label>
-            <input type="time" id="dc_alm_fim" value="${d.alm_fim||'13:00'}">
-          </div>
-        </div>
-        <button class="btn-save" style="width:100%" onclick="saveDappConfig()">💾 Guardar</button>
+    <div style="margin-top:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Mi Configuración</div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Calendar ID <span style="font-weight:400;color:var(--text3)">(Google Calendar)</span></label>
+        <input id="dc_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com">
+        <span style="font-size:11px;color:var(--text3);margin-top:4px;display:block">Google Calendar → Configuración → ID de agenda</span>
       </div>
-    </div>`;
-}
+      <button class="btn-save" style="width:100%" onclick="saveDappConfig()">💾 Guardar</button>
+    </div>`;}
 
 async function saveDappConfig(){
   const d=currentDentista;
-  d.inicio=document.getElementById('dc_ini').value;
-  d.fim=document.getElementById('dc_fim').value;
-  d.alm_ini=document.getElementById('dc_alm_ini').value;
-  d.alm_fim=document.getElementById('dc_alm_fim').value;
+  d.calendar_id=document.getElementById('dc_cal').value;
   try{
     const rows=await sb.query('clinicas',`?id=eq.${d.clinicaId}&select=dentistas`);
     const dents=rows[0]?.dentistas||[];
-    dents[d.idx]={...dents[d.idx],...d};
+    dents[d.idx]={...dents[d.idx],calendar_id:d.calendar_id};
     await sb.update('clinicas',d.clinicaId,{dentistas:dents});
-    toast('Configuración guardada ✓');
+    toast('Calendar ID guardado ✓');
   }catch(e){toast('Error al guardar','err');}
 }
 
@@ -1355,13 +1348,21 @@ async function saveObs(){
 // ══ QR CODE GENERATOR ══
 function showQR(i){
   const c=currentClinica;
-  const dents=c.dentistas||[];
-  const d=dents[i];
-  if(!d||!d.nome){toast('Primero guarda el dentista','err');return;}
-  const token=btoa(`${c.id}:${i}:${d.senha||''}`).replace(/=/g,'');
+  // Lê direto do formulário — não precisa salvar antes
+  const nome=document.getElementById(`d${i}_nome`)?.value||'';
+  const titulo=document.getElementById(`d${i}_titulo`)?.value||'Dr.';
+  const senha=document.getElementById(`d${i}_senha`)?.value||'';
+  if(!nome){toast('Preenche o nome do dentista primeiro','err');return;}
+  if(!senha){toast('Define uma contraseña para o dentista','err');return;}
+  const token=btoa(`${c.id}:${i}:${senha}`).replace(/=/g,'');
   const url=`${window.location.origin}${window.location.pathname}?c=${c.id}&d=${i}&t=${token}`;
-  document.getElementById('qr-dent-name').textContent=`${d.titulo||'Dr.'} ${d.nome}`;
+  document.getElementById('qr-dent-name').textContent=`${titulo} ${nome}`;
   document.getElementById('qr-link-text').textContent=url;
+  // Remove old QR if exists
+  const old=document.getElementById('qr-render');
+  if(old)old.remove();
+  const canvas=document.getElementById('qr-canvas');
+  canvas.style.display='';
   document.getElementById('qr-modal').style.display='flex';
   drawQR(url);
 }
