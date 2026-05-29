@@ -1103,7 +1103,7 @@ function filterPacientes(){
 // ══════════════════════════════════
 async function loadAgendamentos(){
   try{
-    allAgendamentos=await sb.query('agendamentos',`?id_clinico=eq.${currentClinica.id}&order=criado_em.desc`);
+    allAgendamentos=await sb.query('agendamentos',`?id_clinico=eq.${currentClinica.id}`);
     document.getElementById('badge-ag').textContent=allAgendamentos.length;
     renderAgendamentos(allAgendamentos);
   }catch(e){document.getElementById('ag-table-wrap').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar agendamientos</p></div>';}
@@ -1210,7 +1210,7 @@ function showDappTab(name,btn){
 async function loadDappAgenda(){
   try{
     const dentNome=`${currentDentista.titulo||'Dr.'} ${currentDentista.nome||''}`.trim();
-    const all=await sb.query('agendamentos',`?id_clinico=eq.${currentDentista.clinicaId}&order=criado_em.asc`);
+    const all=await sb.query('agendamentos',`?id_clinico=eq.${currentDentista.clinicaId}`);
     dappAgendamentos=all.filter(a=>(a.dentista||'').toLowerCase().includes((currentDentista.nome||'').toLowerCase()));
     renderDappAgenda();
   }catch(e){document.getElementById('dapp-agenda-body').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar</p></div>';}
