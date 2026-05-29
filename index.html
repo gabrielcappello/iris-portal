@@ -500,8 +500,21 @@ function showTab(name,btn){
 function toggleAcc(id){
   const body=document.getElementById(`body-${id}`);
   const arr=document.getElementById(`arr-${id}`);
+  const wasOpen=body.classList.contains('open');
   body.classList.toggle('open');
   arr.classList.toggle('open');
+  if(wasOpen){
+    showSaveReminder();
+  }
+}
+
+function showSaveReminder(){
+  const t=document.getElementById('toast');
+  t.textContent='💾 No olvide guardar los cambios';
+  t.className='show';
+  t.style.borderColor='var(--amber)';
+  t.style.color='#fcd34d';
+  setTimeout(()=>{t.className='';t.style.borderColor='';t.style.color='';},3500);
 }
 
 // ══════════════════════════════════
@@ -577,7 +590,7 @@ function calcSlots(ini,fim,dur,almIni,almFim){
 function renderDentistas(dents){
   const body=document.getElementById('dentistas-body');
   const list=Array.isArray(dents)?dents:[];
-  const slots=Array.from({length:5},(_,i)=>list[i]||{nome:'',calendar_id:'',ativo:false,inicio:'08:00',fim:'18:00',dur:60,alm_ini:'12:00',alm_fim:'13:00',sabado:false,horarios:'',modo:'auto',procedimentos:[]});
+  const slots=Array.from({length:10},(_,i)=>list[i]||{nome:'',calendar_id:'',ativo:false,inicio:'08:00',fim:'18:00',dur:60,alm_ini:'12:00',alm_fim:'13:00',sabado:false,horarios:'',modo:'auto',procedimentos:[]});
   body.innerHTML=slots.map((d,i)=>{
     const modo=d.modo||'auto';
     dentModo[i]=modo;
@@ -634,7 +647,7 @@ function renderDentistas(dents){
         <!-- SÁBADO -->
         <div style="margin-bottom:12px">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);">
-            <span style="font-size:13px;font-weight:600;">📅 Atiende sábado</span>
+            <span style="font-size:13px;font-weight:600;">Atiende sábado</span>
             <select id="d${i}_sab" onchange="toggleSabado(${i})" style="background:var(--surface3);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:13px;color:var(--text);outline:none;">
               <option value="no" ${!d.sabado?'selected':''}>No</option>
               <option value="si" ${d.sabado?'selected':''}>Sí</option>
@@ -757,7 +770,7 @@ async function saveDentistas(){
   const btn=document.querySelector('[onclick="saveDentistas()"]');
   const st=document.getElementById('dent-status');
   btn.disabled=true;st.textContent='Guardando...';st.className='save-status';
-  const dents=Array.from({length:5},(_,i)=>{
+  const dents=Array.from({length:10},(_,i)=>{
     const modo=dentModo[i];
     let horarios='';
     if(modo==='auto'){
