@@ -1073,7 +1073,7 @@ async function saveAuto(){
 // ══════════════════════════════════
 async function loadPacientes(){
   try{
-    allPacientes=await sb.query('pacientes',`?clinica_id=eq.${currentClinica.id}&order=nome.asc`);
+    allPacientes=await sb.query('pacientes',`?id_clinico=eq.${currentClinica.id}&order=nome.asc`);
     document.getElementById('badge-pac').textContent=allPacientes.length;
     renderPacientes(allPacientes);
   }catch(e){document.getElementById('pac-table-wrap').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar pacientes</p></div>';}
@@ -1102,7 +1102,7 @@ function filterPacientes(){
 // ══════════════════════════════════
 async function loadAgendamentos(){
   try{
-    allAgendamentos=await sb.query('agendamentos',`?clinica_id=eq.${currentClinica.id}&order=data.desc,horario.desc`);
+    allAgendamentos=await sb.query('agendamentos',`?id_clinico=eq.${currentClinica.id}&order=data.desc,horario.desc`);
     document.getElementById('badge-ag').textContent=allAgendamentos.length;
     renderAgendamentos(allAgendamentos);
   }catch(e){document.getElementById('ag-table-wrap').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar agendamientos</p></div>';}
@@ -1209,7 +1209,7 @@ function showDappTab(name,btn){
 async function loadDappAgenda(){
   try{
     const dentNome=`${currentDentista.titulo||'Dr.'} ${currentDentista.nome||''}`.trim();
-    const all=await sb.query('agendamentos',`?clinica_id=eq.${currentDentista.clinicaId}&order=data.asc,horario.asc`);
+    const all=await sb.query('agendamentos',`?id_clinico=eq.${currentDentista.clinicaId}&order=data.asc,horario.asc`);
     dappAgendamentos=all.filter(a=>(a.dentista||'').toLowerCase().includes((currentDentista.nome||'').toLowerCase()));
     renderDappAgenda();
   }catch(e){document.getElementById('dapp-agenda-body').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar</p></div>';}
@@ -1268,7 +1268,7 @@ async function dappStatus(id,status,btn){
 
 async function loadDappPacientes(){
   try{
-    const all=await sb.query('pacientes',`?clinica_id=eq.${currentDentista.clinicaId}&order=nome.asc`);
+    const all=await sb.query('pacientes',`?id_clinico=eq.${currentDentista.clinicaId}&order=nome.asc`);
     dappPacientes=all;
     renderDappPacientes(dappPacientes);
   }catch(e){}
