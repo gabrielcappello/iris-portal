@@ -643,7 +643,7 @@ function renderDentistas(dents){
               </div>
             </div>
           </div>
-          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none';margin-top:'8px'}">
+          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none'}"
             <div style="font-size:11px;color:var(--text3);margin-bottom:6px;margin-top:8px">Escribe los horarios separados por coma:</div>
             <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
           </div>
