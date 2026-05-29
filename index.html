@@ -665,7 +665,7 @@ function renderPrecios(precios){
             <span style="font-size:13px;color:var(--text3)">$</span>
             <input type="number" id="precio-${key}" value="${val}" min="0" step="100"
               style="width:90px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;text-align:right"
-              onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+              onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)';if(this.value)this.value=parseInt(this.value)||0;" oninput="if(this.value.length>1&&this.value[0]==='0')this.value=this.value.replace(/^0+/,'')">
           </div>
         </div>`;
       }).join('')}
