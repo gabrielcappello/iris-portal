@@ -193,7 +193,8 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
 #toast.err{border-color:var(--red);color:#fca5a5;}
 
 /* MODAL */
-.modal-bg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+.modal-bg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+.modal-bg.open{display:flex;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;width:100%;max-width:480px;box-shadow:0 32px 80px rgba(0,0,0,.6);animation:loginIn .3s cubic-bezier(.16,1,.3,1);}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:16px;}
 .modal textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);resize:vertical;min-height:120px;outline:none;}
@@ -406,7 +407,7 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
 </div>
 
 <!-- MODAL OBSERVACIONES -->
-<div class="modal-bg" id="obs-modal" style="display:none;z-index:300">
+<div class="modal-bg" id="obs-modal" style="z-index:300">
   <div class="modal">
     <h3>📝 Observaciones del Paciente</h3>
     <textarea id="obs-text" placeholder="Escribe aquí notas sobre este paciente..."></textarea>
@@ -418,14 +419,14 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
 </div>
 
 <!-- MODAL QR CODE -->
-<div class="modal-bg" id="qr-modal" style="display:none">
+<div class="modal-bg" id="qr-modal">
   <div class="qr-modal">
     <h3>📱 Acceso del Dentista</h3>
     <p id="qr-dent-name">Escanea el QR para acceder</p>
     <canvas id="qr-canvas" width="200" height="200"></canvas>
     <div class="qr-link" id="qr-link-text"></div>
     <div class="modal-btns" style="justify-content:center;margin-top:16px">
-      <button class="btn-cancel" onclick="document.getElementById('qr-modal').style.display='none'">Cerrar</button>
+      <button class="btn-cancel" onclick="document.getElementById('qr-modal').classList.remove('open')">Cerrar</button>
     </div>
   </div>
 </div>
@@ -1298,7 +1299,7 @@ function filterDappPacientes(){
 function openDappObs(id,obs){
   obsPatientId=id;
   document.getElementById('obs-text').value=obs||'';
-  document.getElementById('obs-modal').style.display='flex';
+  document.getElementById('obs-modal').classList.add('open');
 }
 
 function renderDappConfig(){
@@ -1330,8 +1331,8 @@ async function saveDappConfig(){
 // ══════════════════════════════════
 // OBSERVACIONES
 // ══════════════════════════════════
-function openObs(id,obs){obsPatientId=id;document.getElementById('obs-text').value=obs||'';document.getElementById('obs-modal').style.display='flex';}
-function closeObs(){document.getElementById('obs-modal').style.display='none';obsPatientId=null;}
+function openObs(id,obs){obsPatientId=id;document.getElementById('obs-text').value=obs||'';document.getElementById('obs-modal').classList.add('open');}
+function closeObs(){document.getElementById('obs-modal').classList.remove('open');obsPatientId=null;}
 async function saveObs(){
   const obs=document.getElementById('obs-text').value;
   try{
@@ -1363,7 +1364,7 @@ function showQR(i){
   if(old)old.remove();
   const canvas=document.getElementById('qr-canvas');
   canvas.style.display='';
-  document.getElementById('qr-modal').style.display='flex';
+  document.getElementById('qr-modal').classList.add('open');
   drawQR(url);
 }
 
