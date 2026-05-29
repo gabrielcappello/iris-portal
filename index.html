@@ -245,6 +245,7 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
     <button class="tab-btn active" onclick="showTab('config',this)">⚙️ Configuración</button>
     <button class="tab-btn" onclick="showTab('pacientes',this)">👤 Pacientes <span class="tab-badge" id="badge-pac">0</span></button>
     <button class="tab-btn" onclick="showTab('agendamentos',this)">📅 Agendamientos <span class="tab-badge" id="badge-ag">0</span></button>
+    <button class="tab-btn" onclick="showTab('precios',this)">💲 Precios</button>
   </div>
 
   <div class="main">
@@ -342,8 +343,23 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
           <option value="falto">Falto</option>
         </select>
       </div>
-      <div class="table-wrap" id="ag-table-wrap">
+      <div class="table-wrap" id="ag-table-wrap" style="margin:0 -4px">
         <div class="loading"><div class="spinner"></div> Cargando agendamientos...</div>
+      </div>
+    </div>
+
+    <!-- PRECIOS -->
+    <div class="tab-panel" id="tab-precios">
+      <div class="accordion" id="acc-precios-wrap">
+        <div class="card-header" style="padding:18px 24px;background:var(--surface2);display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)">
+          <span>💲</span>
+          <div><h2 style="font-size:15px;font-weight:600">Precios por Procedimiento</h2><p style="font-size:12px;color:var(--text2);margin-top:2px">Valores de referencia para cada procedimiento. El agente puede informar estos precios al paciente.</p></div>
+        </div>
+        <div style="padding:20px" id="precios-body"></div>
+        <div class="save-bar">
+          <span class="save-status" id="precios-status"></span>
+          <button class="btn-save" onclick="savePrecios()">💾 Guardar Precios</button>
+        </div>
       </div>
     </div>
 
@@ -516,6 +532,60 @@ function showSaveReminder(){
   setTimeout(()=>{t.className='';t.style.borderColor='';t.style.color='';},3500);
 }
 
+function updateDentName(i){
+  const titulo=document.getElementById(`d${i}_titulo`)?.value||'Dr.';
+  const nome=document.getElementById(`d${i}_nome`)?.value||'';
+  const label=document.getElementById(`dname-label-${i}`);
+  if(label) label.textContent=nome?`— ${titulo} ${nome}`:'';
+}
+
+function renderPrecios(precios){
+  precios=precios||{};
+  const body=document.getElementById('precios-body');
+  if(!body)return;
+  body.innerHTML=ESPECIALIDADES.map(esp=>`
+    <div style="margin-bottom:20px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">${esp.nome}</div>
+      ${esp.procs.map(p=>{
+        const key=p.nome.replace(/\s/g,'_');
+        const val=precios[key]||'0';
+        return `<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+          <span style="flex:1;font-size:13px">${p.nome}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:13px;color:var(--text3)">$</span>
+            <input type="number" id="precio-${key}" value="${val}" min="0" step="100"
+              style="width:90px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;text-align:right"
+              onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
+async function savePrecios(){
+  const btn=document.querySelector('[onclick="savePrecios()"]');
+  const st=document.getElementById('precios-status');
+  btn.disabled=true;st.textContent='Guardando...';st.className='save-status';
+  const precios={};
+  ESPECIALIDADES.forEach(esp=>{
+    esp.procs.forEach(p=>{
+      const key=p.nome.replace(/\s/g,'_');
+      const el=document.getElementById(`precio-${key}`);
+      if(el)precios[key]=el.value||'0';
+    });
+  });
+  try{
+    await sb.update('clinicas',currentClinica.id,{precios});
+    currentClinica.precios=precios;
+    st.textContent='✓ Guardado';st.className='save-status ok';
+    toast('Precios guardados ✓');
+  }catch(e){
+    st.textContent='✗ Error';st.className='save-status err';
+    toast('Error al guardar','err');
+  }
+  btn.disabled=false;
+}
+
 // ══════════════════════════════════
 // LOAD ALL
 // ══════════════════════════════════
@@ -544,6 +614,7 @@ function loadConfig(){
   document.getElementById('c_maps').value=c.maps_link||'';
   renderDentistas(c.dentistas||[]);
   renderAuto(c.automatizacoes||{});
+  renderPrecios(c.precios||{});
 }
 
 async function saveConfig(){
@@ -628,14 +699,23 @@ function renderDentistas(dents){
       <div class="dent-accordion-header ${d.ativo?'has-active':''}" onclick="toggleDentAcc(${i})">
         <span style="font-size:18px">👨‍⚕️</span>
         <span style="font-size:13px;font-weight:700;color:var(--text)">Dentista ${i+1}</span>
-        <span style="font-size:12px;font-weight:400;color:var(--text3);margin-left:6px" id="dname-label-${i}">${d.nome?`— ${d.nome}`:''}</span>
+        <span style="font-size:12px;font-weight:400;color:var(--text2);margin-left:6px" id="dname-label-${i}">${d.nome?`— ${d.titulo||'Dr.'} ${d.nome}`:''}</span>
         <div style="flex:1"></div>
         <div class="toggle ${d.ativo?'on':''}" id="dent-toggle-${i}" onclick="event.stopPropagation();toggleDentista(${i})"></div>
         <span class="dent-accordion-arrow" id="darr-${i}">▼</span>
       </div>
       <div class="dent-accordion-body" id="dbody-${i}">
         <div class="form-grid" style="margin-bottom:12px">
-          <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre" oninput="document.getElementById('dname-label-${i}').textContent=this.value?'— '+this.value:''"></div>
+          <div class="form-group full">
+            <label style="color:var(--text)">Nombre del Dentista <span style="color:var(--red)">*</span></label>
+            <div style="display:flex;gap:8px">
+              <select id="d${i}_titulo" style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;flex:0 0 90px">
+                <option value="Dr." ${(d.titulo||'Dr.')==='Dr.'?'selected':''}>Dr.</option>
+                <option value="Dra." ${d.titulo==='Dra.'?'selected':''}>Dra.</option>
+              </select>
+              <input id="d${i}_nome" value="${d.nome||''}" placeholder="Apellido y nombre" style="flex:1" oninput="updateDentName(${i})">
+            </div>
+          </div>
           <div class="form-group full"><label>Calendar ID</label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
           <div class="form-group"><label>Inicio semana</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Fin semana</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
@@ -785,6 +865,7 @@ async function saveDentista(i){
   }
   const dentData={
     nome:document.getElementById(`d${i}_nome`)?.value||'',
+    titulo:document.getElementById(`d${i}_titulo`)?.value||'Dr.',
     calendar_id:document.getElementById(`d${i}_cal`)?.value||'',
     ativo:document.getElementById(`dent-toggle-${i}`)?.classList.contains('on')||false,
     inicio:document.getElementById(`d${i}_ini`)?.value||'08:00',
