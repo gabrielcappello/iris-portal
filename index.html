@@ -110,14 +110,20 @@ header{position:sticky;top:0;z-index:50;background:rgba(5,8,16,.85);backdrop-fil
 .dent-name-label{flex:1;font-size:14px;font-weight:600;}
 .dent-accordion-arrow{color:var(--text3);font-size:16px;transition:transform .3s;margin-left:8px;}
 .dent-accordion-arrow.open{transform:rotate(180deg);}
-.dent-accordion-body{display:none;padding:20px;border-top:1px solid var(--border);}
+.dent-accordion-body{display:none;padding:12px;border-top:1px solid var(--border);}
 .dent-accordion-body.open{display:block;}
 
 /* MODE TOGGLE */
-.mode-toggle{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
-.mode-btn{flex:1;padding:8px 10px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;background:transparent;border:none;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.mode-toggle-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+.mode-toggle-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.mode-toggle{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;width:100%;}
+.mode-btn{flex:1;padding:9px 6px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;background:transparent;border:none;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;text-align:center;}
 .mode-btn.active{background:var(--accent);color:white;}
 .mode-btn:not(.active):hover{background:var(--surface3);color:var(--text);}
+
+/* SÁBADO */
+.sabado-horarios{background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius-sm);padding:12px;margin-top:10px;}
+.sabado-horarios-title{font-size:11px;font-weight:600;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
 
 /* SLOTS */
 .slots-preview{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;min-height:42px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
@@ -125,22 +131,22 @@ header{position:sticky;top:0;z-index:50;background:rgba(5,8,16,.85);backdrop-fil
 .slots-empty{font-size:12px;color:var(--text3);}
 
 /* PROCEDIMENTOS */
-.spec-accordion{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;margin-left:4px;margin-right:4px;}
-.spec-header{padding:11px 16px;background:var(--surface2);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:14px;font-weight:600;transition:background .15s;}
+.spec-accordion{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;margin-left:2px;margin-right:2px;}
+.spec-header{padding:11px 14px;background:var(--surface2);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:14px;font-weight:600;transition:background .15s;}
 .spec-header:hover{background:var(--surface3);}
 .spec-header .spec-arrow{margin-left:auto;color:var(--text3);font-size:14px;transition:transform .25s;}
 .spec-header .spec-arrow.open{transform:rotate(180deg);}
-.spec-body{display:none;padding:12px 16px;border-top:1px solid var(--border);}
+.spec-body{display:none;padding:10px 12px;border-top:1px solid var(--border);}
 .spec-body.open{display:block;}
-.proc-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.proc-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);}
 .proc-row:last-child{border-bottom:none;}
 .proc-check{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
-.proc-name{flex:1;font-size:14.5px;}
-.proc-time-wrap{display:flex;align-items:center;gap:6px;}
-.proc-time{width:72px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);outline:none;text-align:center;}
+.proc-name{flex:1;font-size:14px;}
+.proc-time-wrap{display:flex;align-items:center;gap:4px;}
+.proc-time{width:60px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);outline:none;text-align:center;}
 .proc-time:focus{border-color:var(--accent);}
 .proc-time-label{font-size:11px;color:var(--text3);}
-.proc-time-btn{width:24px;height:24px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:all .15s;}
+.proc-time-btn{width:26px;height:26px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;transition:all .15s;}
 .proc-time-btn:hover{background:var(--accent);color:white;border-color:var(--accent);}
 
 /* AUTOMAÇÕES */
@@ -591,20 +597,37 @@ function renderDentistas(dents){
         <span class="dent-accordion-arrow" id="darr-${i}">▼</span>
       </div>
       <div class="dent-accordion-body" id="dbody-${i}">
-        <div class="form-grid cols-3" style="margin-bottom:16px">
+        <div class="form-grid" style="margin-bottom:12px">
           <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre" oninput="document.getElementById('dname-label-${i}').textContent=this.value||'Dentista ${i+1}'"></div>
           <div class="form-group full"><label>Calendar ID</label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
-          <div class="form-group"><label>Inicio</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
-          <div class="form-group"><label>Fin</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Inicio semana</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
+          <div class="form-group"><label>Fin semana</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Almuerzo inicio</label><input type="time" id="d${i}_alm_ini" value="${d.alm_ini||'12:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Almuerzo fin</label><input type="time" id="d${i}_alm_fim" value="${d.alm_fim||'13:00'}" oninput="updateSlots(${i})"></div>
-          <div class="form-group"><label>Atiende sábado</label><select id="d${i}_sab"><option value="no" ${!d.sabado?'selected':''}>No</option><option value="si" ${d.sabado?'selected':''}>Sí</option></select></div>
+        </div>
+
+        <!-- SÁBADO -->
+        <div style="margin-bottom:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+            <span style="font-size:13px;font-weight:600;">📅 Atiende sábado</span>
+            <select id="d${i}_sab" onchange="toggleSabado(${i})" style="background:var(--surface3);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:13px;color:var(--text);outline:none;">
+              <option value="no" ${!d.sabado?'selected':''}>No</option>
+              <option value="si" ${d.sabado?'selected':''}>Sí</option>
+            </select>
+          </div>
+          <div class="sabado-horarios" id="sabado-box-${i}" style="${d.sabado?'':'display:none'}">
+            <div class="sabado-horarios-title">🗓️ Horario del sábado</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Inicio sábado</label><input type="time" id="d${i}_sab_ini" value="${d.sab_ini||'08:00'}"></div>
+              <div class="form-group"><label>Fin sábado</label><input type="time" id="d${i}_sab_fim" value="${d.sab_fim||'13:00'}"></div>
+            </div>
+          </div>
         </div>
 
         <!-- MODO HORARIOS -->
-        <div style="margin-bottom:16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px">Modo de horarios</label>
+        <div style="margin-bottom:14px">
+          <div class="mode-toggle-wrap">
+            <span class="mode-toggle-label">Modo de horarios</span>
             <div class="mode-toggle" id="modetog-${i}">
               <button class="mode-btn ${modo==='auto'?'active':''}" onclick="setModo(${i},'auto')">⚡ Automático</button>
               <button class="mode-btn ${modo==='manual'?'active':''}" onclick="setModo(${i},'manual')">✏️ Manual</button>
@@ -612,7 +635,7 @@ function renderDentistas(dents){
             </div>
           </div>
           <div id="mode-auto-${i}" style="${modo==='auto'?'':'display:none'}">
-            <div style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
               <div class="form-group" style="flex:0 0 130px"><label>Duración (min)</label><input type="number" id="d${i}_dur" value="${d.dur||60}" min="5" step="5" oninput="updateSlots(${i})"></div>
               <div style="flex:1">
                 <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Slots generados:</div>
@@ -620,18 +643,18 @@ function renderDentistas(dents){
               </div>
             </div>
           </div>
-          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none'}">
-            <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Escribe los horarios separados por coma:</div>
-            <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
+          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none';margin-top:'8px'}">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:6px;margin-top:8px">Escribe los horarios separados por coma:</div>
+            <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
           </div>
           <div id="mode-proc-${i}" style="${modo==='proc'?'':'display:none'}">
-            <div style="font-size:11px;color:var(--text3);margin-bottom:8px">Los horarios se calcularán según la duración de cada procedimiento.</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:8px">Los horarios se calcularán según la duración de cada procedimiento seleccionado.</div>
           </div>
         </div>
 
         <!-- PROCEDIMENTOS -->
         <div>
-          <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:10px">Procedimientos que atiende</label>
+          <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px">Procedimientos que atiende</label>
           <div id="specs-${i}">${specHtml}</div>
         </div>
       </div>
@@ -651,6 +674,12 @@ function toggleDentista(i){
   const h=document.getElementById(`dacc-${i}`).querySelector('.dent-accordion-header');
   t.classList.toggle('on');
   h.classList.toggle('has-active',t.classList.contains('on'));
+}
+
+function toggleSabado(i){
+  const val=document.getElementById(`d${i}_sab`).value;
+  const box=document.getElementById(`sabado-box-${i}`);
+  box.style.display=val==='si'?'':'none';
 }
 
 function toggleSpec(di,ei){
@@ -725,6 +754,8 @@ async function saveDentistas(){
       alm_ini:document.getElementById(`d${i}_alm_ini`)?.value||'12:00',
       alm_fim:document.getElementById(`d${i}_alm_fim`)?.value||'13:00',
       sabado:document.getElementById(`d${i}_sab`)?.value==='si',
+      sab_ini:document.getElementById(`d${i}_sab_ini`)?.value||'08:00',
+      sab_fim:document.getElementById(`d${i}_sab_fim`)?.value||'13:00',
       horarios,modo,
       procedimentos:getProcs(i),
     };
@@ -748,7 +779,7 @@ function renderAuto(a){
         <div class="auto-title">🔔 Recordatorio 2 horas antes</div>
         <div class="auto-sub">Envía un mensaje automático 2 horas antes de cada consulta</div>
       </div>
-      <div class="toggle ${a.lembrete_2h?'on':''}" id="auto-lembrete_2h" onclick="this.classList.toggle('on')"></div>
+      <div class="toggle ${a.lembrete_2h!==false?'on':''}" id="auto-lembrete_2h" onclick="this.classList.toggle('on')"></div>
     </div>
     <div class="auto-item">
       <div class="auto-info">
