@@ -211,6 +211,45 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
   .tab-nav{padding:0 16px;}
   .main{padding:20px 16px;}
 }
+
+/* ══ APP DENTISTA ══ */
+#app-dentista{display:none;position:relative;z-index:1;min-height:100vh;}
+.dapp-header{position:sticky;top:0;z-index:50;background:rgba(5,8,16,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 16px;height:60px;display:flex;align-items:center;gap:12px;}
+.dapp-logo{width:32px;height:32px;background:linear-gradient(135deg,var(--green),#059669);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.dapp-name{font-size:15px;font-weight:700;flex:1;}
+.dapp-clinic{font-size:11px;color:var(--text3);}
+.dapp-nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;}
+.dapp-tab{flex:1;min-width:60px;padding:12px 8px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;color:var(--text3);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .2s;}
+.dapp-tab span{font-size:18px;}
+.dapp-tab.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.dapp-main{max-width:600px;margin:0 auto;padding:16px;}
+.dapp-panel{display:none;}
+.dapp-panel.active{display:block;}
+
+/* Agenda cards */
+.agenda-date-header{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 8px;}
+.agenda-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.agenda-card.status-ok{border-left:3px solid var(--green);}
+.agenda-card.status-falto{border-left:3px solid var(--red);}
+.agenda-card.status-cancelado{opacity:.5;}
+.agenda-time{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--accent2);min-width:48px;}
+.agenda-info{flex:1;}
+.agenda-name{font-size:14px;font-weight:600;}
+.agenda-proc{font-size:12px;color:var(--text2);margin-top:2px;}
+.agenda-actions{display:flex;gap:6px;}
+.btn-ok-sm{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:#34d399;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
+.btn-ok-sm:hover,.btn-ok-sm.active{background:var(--green);color:white;border-color:var(--green);}
+.btn-falto-sm{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
+.btn-falto-sm:hover,.btn-falto-sm.active{background:var(--red);color:white;border-color:var(--red);}
+.btn-wa{background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:#25d366;border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer;transition:all .2s;}
+.btn-wa:hover{background:#25d366;color:white;}
+
+/* QR Modal */
+.qr-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;width:100%;max-width:360px;box-shadow:0 32px 80px rgba(0,0,0,.6);animation:loginIn .3s cubic-bezier(.16,1,.3,1);text-align:center;}
+.qr-modal h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+.qr-modal p{font-size:13px;color:var(--text2);margin-bottom:20px;}
+#qr-canvas{border-radius:12px;background:white;padding:12px;}
+.qr-link{font-size:11px;color:var(--text3);margin-top:12px;word-break:break-all;font-family:'JetBrains Mono',monospace;}
 </style>
 </head>
 <body>
@@ -366,8 +405,50 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
   </div>
 </div>
 
-<!-- MODAL OBSERVACIONES -->
-<div class="modal-bg" id="obs-modal" style="display:none">
+<!-- MODAL QR CODE -->
+<div class="modal-bg" id="qr-modal" style="display:none">
+  <div class="qr-modal">
+    <h3>📱 Acceso del Dentista</h3>
+    <p id="qr-dent-name">Escanea el QR para acceder</p>
+    <canvas id="qr-canvas" width="200" height="200"></canvas>
+    <div class="qr-link" id="qr-link-text"></div>
+    <div class="modal-btns" style="justify-content:center;margin-top:16px">
+      <button class="btn-cancel" onclick="document.getElementById('qr-modal').style.display='none'">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP DENTISTA -->
+<div id="app-dentista">
+  <div class="dapp-header">
+    <div class="dapp-logo">🦷</div>
+    <div>
+      <div class="dapp-name" id="dapp-name">—</div>
+      <div class="dapp-clinic" id="dapp-clinic">—</div>
+    </div>
+    <button class="btn-logout" style="margin-left:auto" onclick="dentLogout()">Salir</button>
+  </div>
+  <div class="dapp-nav">
+    <button class="dapp-tab active" onclick="showDappTab('agenda',this)"><span>📅</span>Agenda</button>
+    <button class="dapp-tab" onclick="showDappTab('pacientes',this)"><span>👤</span>Pacientes</button>
+    <button class="dapp-tab" onclick="showDappTab('config',this)"><span>⚙️</span>Config</button>
+  </div>
+  <div class="dapp-main">
+    <!-- AGENDA -->
+    <div class="dapp-panel active" id="dapp-agenda">
+      <div id="dapp-agenda-body"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+    <!-- PACIENTES -->
+    <div class="dapp-panel" id="dapp-pacientes">
+      <input class="search-input" id="dapp-search-pac" placeholder="🔍 Buscar paciente..." oninput="filterDappPacientes()" style="width:100%;margin-bottom:12px">
+      <div id="dapp-pac-body"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+    <!-- CONFIG DENTISTA -->
+    <div class="dapp-panel" id="dapp-config">
+      <div id="dapp-config-body"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+  </div>
+</div>
   <div class="modal">
     <h3>📝 Observaciones del Paciente</h3>
     <textarea id="obs-text" placeholder="Escribe aquí notas sobre este paciente..."></textarea>
@@ -717,6 +798,7 @@ function renderDentistas(dents){
             </div>
           </div>
           <div class="form-group full"><label>Calendar ID</label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
+          <div class="form-group"><label>Contraseña acceso</label><input type="password" id="d${i}_senha" value="${d.senha||''}" placeholder="Clave para el dentista"></div>
           <div class="form-group"><label>Apertura</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Cierre</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Almuerzo inicio</label><input type="time" id="d${i}_alm_ini" value="${d.alm_ini||'12:00'}" oninput="updateSlots(${i})"></div>
@@ -770,9 +852,12 @@ function renderDentistas(dents){
           <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px">Procedimientos que atiende</label>
           <div id="specs-${i}">${specHtml}</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">
-          <span class="save-status" id="dent-status-${i}"></span>
-          <button class="btn-save" onclick="saveDentista(${i})">💾 Guardar Dentista ${i+1}</button>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">
+          <button style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:var(--accent2);border-radius:var(--radius-sm);padding:9px 16px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;" onclick="showQR(${i})">📱 QR Code</button>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="save-status" id="dent-status-${i}"></span>
+            <button class="btn-save" onclick="saveDentista(${i})">💾 Guardar Dentista ${i+1}</button>
+          </div>
         </div>
       </div>
     </div>`;
@@ -867,6 +952,7 @@ async function saveDentista(i){
     nome:document.getElementById(`d${i}_nome`)?.value||'',
     titulo:document.getElementById(`d${i}_titulo`)?.value||'Dr.',
     calendar_id:document.getElementById(`d${i}_cal`)?.value||'',
+    senha:document.getElementById(`d${i}_senha`)?.value||'',
     ativo:document.getElementById(`dent-toggle-${i}`)?.classList.contains('on')||false,
     inicio:document.getElementById(`d${i}_ini`)?.value||'08:00',
     fim:document.getElementById(`d${i}_fim`)?.value||'18:00',
@@ -1046,6 +1132,209 @@ async function updateStatus(id,status){
 }
 
 // ══════════════════════════════════
+// APP DENTISTA
+// ══════════════════════════════════
+let currentDentista=null;
+let dappAgendamentos=[], dappPacientes=[];
+
+// Auto-login from URL params
+document.addEventListener('DOMContentLoaded',function(){
+  const pwEl=document.getElementById('login-password');
+  if(pwEl)pwEl.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+  
+  const params=new URLSearchParams(window.location.search);
+  const clinicaId=params.get('c');
+  const dentIdx=params.get('d');
+  const token=params.get('t');
+  if(clinicaId&&dentIdx!==null&&token){
+    autoDentLogin(clinicaId,parseInt(dentIdx),token);
+  }
+});
+
+async function autoDentLogin(clinicaId,dentIdx,token){
+  try{
+    const rows=await sb.query('clinicas',`?id=eq.${clinicaId}&ativo=eq.true&select=*`);
+    if(!rows.length)return;
+    const clinica=rows[0];
+    const dents=clinica.dentistas||[];
+    const dent=dents[dentIdx];
+    if(!dent)return;
+    // token = simple hash of senha
+    const expectedToken=btoa(`${clinicaId}:${dentIdx}:${dent.senha||''}`).replace(/=/g,'');
+    if(token!==expectedToken)return;
+    currentDentista={...dent,idx:dentIdx,clinicaId,clinica};
+    showDentApp();
+  }catch(e){console.error(e);}
+}
+
+function showDentApp(){
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('app').style.display='none';
+  document.getElementById('app-dentista').style.display='block';
+  const d=currentDentista;
+  document.getElementById('dapp-name').textContent=`${d.titulo||'Dr.'} ${d.nome||''}`;
+  document.getElementById('dapp-clinic').textContent=d.clinica?.nome||'';
+  loadDappAgenda();
+  loadDappPacientes();
+  renderDappConfig();
+}
+
+function dentLogout(){
+  currentDentista=null;
+  document.getElementById('app-dentista').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  // Clear URL params
+  window.history.replaceState({},'',window.location.pathname);
+}
+
+function showDappTab(name,btn){
+  document.querySelectorAll('.dapp-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dapp-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`dapp-${name}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function loadDappAgenda(){
+  try{
+    const dentNome=`${currentDentista.titulo||'Dr.'} ${currentDentista.nome||''}`.trim();
+    const all=await sb.query('agendamentos',`?clinica_id=eq.${currentDentista.clinicaId}&order=data.asc,horario.asc`);
+    dappAgendamentos=all.filter(a=>(a.dentista||'').toLowerCase().includes((currentDentista.nome||'').toLowerCase()));
+    renderDappAgenda();
+  }catch(e){document.getElementById('dapp-agenda-body').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar</p></div>';}
+}
+
+function renderDappAgenda(){
+  const body=document.getElementById('dapp-agenda-body');
+  if(!dappAgendamentos.length){body.innerHTML='<div class="empty"><div class="empty-icon">📅</div><p>No hay agendamientos</p></div>';return;}
+  const today=new Date().toISOString().split('T')[0];
+  const groups={};
+  dappAgendamentos.filter(a=>a.data>=today&&a.status!=='cancelado').forEach(a=>{
+    if(!groups[a.data])groups[a.data]=[];
+    groups[a.data].push(a);
+  });
+  if(!Object.keys(groups).length){body.innerHTML='<div class="empty"><div class="empty-icon">✅</div><p>No hay turnos próximos</p></div>';return;}
+  body.innerHTML=Object.keys(groups).sort().map(date=>{
+    const label=date===today?'Hoy':formatDate(date);
+    return `<div class="agenda-date-header">${label}</div>
+    ${groups[date].map(a=>`
+      <div class="agenda-card status-${a.status||''}" id="acard-${a.id}">
+        <div class="agenda-time">${a.horario||'--:--'}</div>
+        <div class="agenda-info">
+          <div class="agenda-name">${a.nome||'—'}</div>
+          <div class="agenda-proc">${a.procedimento||'—'}</div>
+        </div>
+        <div class="agenda-actions">
+          <button class="btn-wa" onclick="openWA('${a.telefone||''}')" title="WhatsApp">💬</button>
+          <button class="btn-ok-sm ${a.status==='ok'?'active':''}" onclick="dappStatus('${a.id}','ok',this)">✓</button>
+          <button class="btn-falto-sm ${a.status==='falto'?'active':''}" onclick="dappStatus('${a.id}','falto',this)">✗</button>
+        </div>
+      </div>`).join('')}`;
+  }).join('');
+}
+
+function formatDate(d){
+  const [y,m,day]=d.split('-');
+  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${day} ${months[parseInt(m)-1]}`;
+}
+
+function openWA(tel){
+  if(!tel)return;
+  const clean=tel.replace(/\D/g,'');
+  window.open(`https://wa.me/${clean}`,'_blank');
+}
+
+async function dappStatus(id,status,btn){
+  try{
+    await sb.update('agendamentos',id,{status});
+    const idx=dappAgendamentos.findIndex(a=>a.id===id);
+    if(idx!==-1)dappAgendamentos[idx].status=status;
+    renderDappAgenda();
+    toast(`${status==='ok'?'✓ Presente':'✗ Faltó'} marcado`);
+  }catch(e){toast('Error','err');}
+}
+
+async function loadDappPacientes(){
+  try{
+    const all=await sb.query('pacientes',`?clinica_id=eq.${currentDentista.clinicaId}&order=nome.asc`);
+    dappPacientes=all;
+    renderDappPacientes(dappPacientes);
+  }catch(e){}
+}
+
+function renderDappPacientes(list){
+  const body=document.getElementById('dapp-pac-body');
+  if(!list.length){body.innerHTML='<div class="empty"><div class="empty-icon">👤</div><p>No hay pacientes</p></div>';return;}
+  body.innerHTML=list.map(p=>`
+    <div class="agenda-card" style="margin-bottom:8px;flex-wrap:wrap;gap:8px">
+      <div style="flex:1;min-width:0">
+        <div class="agenda-name">${p.nome||'—'}</div>
+        <div class="agenda-proc">${p.documento||''} · ${p.ultima_consulta||'Sin consultas'}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn-wa" onclick="openWA('${p.telefone||''}')" title="WhatsApp">💬</button>
+        <button class="obs-btn" onclick="openDappObs('${p.id}','${(p.observacoes||'').replace(/'/g,"\\'")}')">📝</button>
+      </div>
+    </div>`).join('');
+}
+
+function filterDappPacientes(){
+  const q=document.getElementById('dapp-search-pac').value.toLowerCase();
+  renderDappPacientes(dappPacientes.filter(p=>(p.nome||'').toLowerCase().includes(q)||(p.documento||'').includes(q)));
+}
+
+function openDappObs(id,obs){
+  obsPatientId=id;
+  document.getElementById('obs-text').value=obs||'';
+  document.getElementById('obs-modal').style.display='flex';
+}
+
+function renderDappConfig(){
+  const d=currentDentista;
+  const body=document.getElementById('dapp-config-body');
+  body.innerHTML=`
+    <div class="accordion" style="margin-top:8px">
+      <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+        <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Mi Configuración</div>
+        <div class="form-grid" style="margin-bottom:12px">
+          <div class="form-group">
+            <label>Apertura</label>
+            <input type="time" id="dc_ini" value="${d.inicio||'08:00'}">
+          </div>
+          <div class="form-group">
+            <label>Cierre</label>
+            <input type="time" id="dc_fim" value="${d.fim||'18:00'}">
+          </div>
+          <div class="form-group">
+            <label>Almuerzo inicio</label>
+            <input type="time" id="dc_alm_ini" value="${d.alm_ini||'12:00'}">
+          </div>
+          <div class="form-group">
+            <label>Almuerzo fin</label>
+            <input type="time" id="dc_alm_fim" value="${d.alm_fim||'13:00'}">
+          </div>
+        </div>
+        <button class="btn-save" style="width:100%" onclick="saveDappConfig()">💾 Guardar</button>
+      </div>
+    </div>`;
+}
+
+async function saveDappConfig(){
+  const d=currentDentista;
+  d.inicio=document.getElementById('dc_ini').value;
+  d.fim=document.getElementById('dc_fim').value;
+  d.alm_ini=document.getElementById('dc_alm_ini').value;
+  d.alm_fim=document.getElementById('dc_alm_fim').value;
+  try{
+    const rows=await sb.query('clinicas',`?id=eq.${d.clinicaId}&select=dentistas`);
+    const dents=rows[0]?.dentistas||[];
+    dents[d.idx]={...dents[d.idx],...d};
+    await sb.update('clinicas',d.clinicaId,{dentistas:dents});
+    toast('Configuración guardada ✓');
+  }catch(e){toast('Error al guardar','err');}
+}
+
+// ══════════════════════════════════
 // OBSERVACIONES
 // ══════════════════════════════════
 function openObs(id,obs){obsPatientId=id;document.getElementById('obs-text').value=obs||'';document.getElementById('obs-modal').style.display='flex';}
@@ -1057,7 +1346,55 @@ async function saveObs(){
     const idx=allPacientes.findIndex(p=>p.id===obsPatientId);
     if(idx!==-1)allPacientes[idx].observacoes=obs;
     toast('Observación guardada ✓');closeObs();renderPacientes(allPacientes);
+    // also update dapp if open
+    const di=dappPacientes.findIndex(p=>p.id===obsPatientId);
+    if(di!==-1)dappPacientes[di].observacoes=obs;
   }catch(e){toast('Error al guardar','err');}
+}
+
+// ══ QR CODE GENERATOR ══
+function showQR(i){
+  const c=currentClinica;
+  const dents=c.dentistas||[];
+  const d=dents[i];
+  if(!d||!d.nome){toast('Primero guarda el dentista','err');return;}
+  const token=btoa(`${c.id}:${i}:${d.senha||''}`).replace(/=/g,'');
+  const url=`${window.location.origin}${window.location.pathname}?c=${c.id}&d=${i}&t=${token}`;
+  document.getElementById('qr-dent-name').textContent=`${d.titulo||'Dr.'} ${d.nome}`;
+  document.getElementById('qr-link-text').textContent=url;
+  document.getElementById('qr-modal').style.display='flex';
+  drawQR(url);
+}
+
+function drawQR(text){
+  const canvas=document.getElementById('qr-canvas');
+  const ctx=canvas.getContext('2d');
+  const size=200;
+  canvas.width=size;canvas.height=size;
+  // Simple QR placeholder — use qrcode.js
+  ctx.fillStyle='white';ctx.fillRect(0,0,size,size);
+  ctx.fillStyle='#1a1a2e';
+  ctx.font='11px monospace';
+  ctx.textAlign='center';
+  ctx.fillText('Cargando QR...',size/2,size/2);
+  // Load QRCode library dynamically
+  if(!window.QRCode){
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    s.onload=()=>renderQRCode(text,canvas);
+    document.head.appendChild(s);
+  }else{
+    renderQRCode(text,canvas);
+  }
+}
+
+function renderQRCode(text,canvas){
+  canvas.innerHTML='';
+  const div=document.createElement('div');
+  canvas.parentNode.insertBefore(div,canvas);
+  canvas.style.display='none';
+  div.id='qr-render';
+  new QRCode(div,{text,width:200,height:200,colorDark:'#050810',colorLight:'#ffffff'});
 }
 </script>
 </body>
