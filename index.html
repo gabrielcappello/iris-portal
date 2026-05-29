@@ -269,6 +269,11 @@ tbody td{padding:12px 16px;font-size:13px;vertical-align:middle;}
               <div class="form-group"><label>Ciudad</label><input id="c_cidade" placeholder="Buenos Aires"></div>
               <div class="form-group"><label>Código Postal</label><input id="c_cep" placeholder="C1000"></div>
               <div class="form-group full"><label>Nombre WhatsApp <span style="font-weight:400;color:var(--text3)">(instancia en Evolution API)</span></label><input id="c_wp" placeholder="Ej: ClinicaAR"></div>
+            <div class="form-group full">
+              <label>Link de Localización <span style="font-weight:400;color:var(--text3)">(Google Maps)</span></label>
+              <input id="c_maps" placeholder="https://maps.google.com/?q=...">
+              <span style="font-size:11px;color:var(--text3);margin-top:4px">El agente enviará este link al paciente cuando lo solicite o al finalizar el agendamiento.</span>
+            </div>
             </div>
           </div>
           <div class="save-bar">
@@ -510,6 +515,7 @@ function loadConfig(){
   document.getElementById('c_cidade').value=c.cidade||'';
   document.getElementById('c_cep').value=c.cep||'';
   document.getElementById('c_wp').value=c.whatsapp_instancia||'';
+  document.getElementById('c_maps').value=c.maps_link||'';
   renderDentistas(c.dentistas||[]);
   renderAuto(c.automatizacoes||{});
 }
@@ -527,6 +533,7 @@ async function saveConfig(){
       cidade:document.getElementById('c_cidade').value,
       cep:document.getElementById('c_cep').value,
       whatsapp_instancia:document.getElementById('c_wp').value,
+      maps_link:document.getElementById('c_maps').value,
     });
     st.textContent='✓ Guardado';st.className='save-status ok';toast('Configuración guardada ✓');
   }catch(e){st.textContent='✗ Error';st.className='save-status err';toast('Error al guardar','err');}
@@ -591,14 +598,16 @@ function renderDentistas(dents){
     return `
     <div class="dent-accordion" id="dacc-${i}">
       <div class="dent-accordion-header ${d.ativo?'has-active':''}" onclick="toggleDentAcc(${i})">
-        <span style="font-size:20px">👨‍⚕️</span>
-        <span class="dent-name-label" id="dname-label-${i}">${d.nome||`Dentista ${i+1}`}</span>
+        <span style="font-size:18px">👨‍⚕️</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text)">Dentista ${i+1}</span>
+        <span style="font-size:12px;font-weight:400;color:var(--text3);margin-left:6px" id="dname-label-${i}">${d.nome?`— ${d.nome}`:''}</span>
+        <div style="flex:1"></div>
         <div class="toggle ${d.ativo?'on':''}" id="dent-toggle-${i}" onclick="event.stopPropagation();toggleDentista(${i})"></div>
         <span class="dent-accordion-arrow" id="darr-${i}">▼</span>
       </div>
       <div class="dent-accordion-body" id="dbody-${i}">
         <div class="form-grid" style="margin-bottom:12px">
-          <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre" oninput="document.getElementById('dname-label-${i}').textContent=this.value||'Dentista ${i+1}'"></div>
+          <div class="form-group full"><label>Nombre</label><input id="d${i}_nome" value="${d.nome||''}" placeholder="Dr. Nombre" oninput="document.getElementById('dname-label-${i}').textContent=this.value?'— '+this.value:''"></div>
           <div class="form-group full"><label>Calendar ID</label><input id="d${i}_cal" value="${d.calendar_id||''}" placeholder="xxx@group.calendar.google.com"></div>
           <div class="form-group"><label>Inicio semana</label><input type="time" id="d${i}_ini" value="${d.inicio||'08:00'}" oninput="updateSlots(${i})"></div>
           <div class="form-group"><label>Fin semana</label><input type="time" id="d${i}_fim" value="${d.fim||'18:00'}" oninput="updateSlots(${i})"></div>
@@ -629,30 +638,26 @@ function renderDentistas(dents){
           <div class="mode-toggle-wrap">
             <span class="mode-toggle-label">Modo de horarios</span>
             <div class="mode-toggle" id="modetog-${i}">
-              <button class="mode-btn ${modo==='auto'?'active':''}" onclick="setModo(${i},'auto')">⚡ Automático</button>
-              <button class="mode-btn ${modo==='manual'?'active':''}" onclick="setModo(${i},'manual')">✏️ Manual</button>
-              <button class="mode-btn ${modo==='proc'?'active':''}" onclick="setModo(${i},'proc')">🦷 Por procedimiento</button>
+              <button class="mode-btn ${modo==='auto'?'active':''}" onclick="setModo(${i},'auto')">Automático</button>
+              <button class="mode-btn ${modo==='manual'?'active':''}" onclick="setModo(${i},'manual')">Manual</button>
+              <button class="mode-btn ${modo==='proc'?'active':''}" onclick="setModo(${i},'proc')">Por procedimiento</button>
             </div>
           </div>
-          <div id="mode-auto-${i}" style="${modo==='auto'?'':'display:none'}">
-            <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
-              <div class="form-group" style="flex:0 0 130px"><label>Duración (min)</label><input type="number" id="d${i}_dur" value="${d.dur||60}" min="5" step="5" oninput="updateSlots(${i})"></div>
-              <div style="flex:1">
-                <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Slots generados:</div>
-                <div class="slots-preview" id="slots-preview-${i}">${slotsHtml}</div>
-              </div>
-            </div>
+          <div id="mode-auto-${i}" style="${modo==='auto'?'':'display:none'};margin-top:8px">
+            <div class="form-group" style="max-width:160px;margin-bottom:8px"><label>Duración (min)</label><input type="number" id="d${i}_dur" value="${d.dur||60}" min="5" step="5" oninput="updateSlots(${i})"></div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Slots generados:</div>
+            <div class="slots-preview" id="slots-preview-${i}">${slotsHtml}</div>
           </div>
-          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none'}"
-            <div style="font-size:11px;color:var(--text3);margin-bottom:6px;margin-top:8px">Escribe los horarios separados por coma:</div>
+          <div id="mode-manual-${i}" style="${modo==='manual'?'':'display:none'};margin-top:8px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Escribe los horarios separados por coma:</div>
             <input id="d${i}_horarios" value="${d.horarios||''}" placeholder="08:00,09:00,10:00,11:00,14:00,15:00" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;">
           </div>
-          <div id="mode-proc-${i}" style="${modo==='proc'?'':'display:none'}">
-            <div style="font-size:11px;color:var(--text3);margin-top:8px">Los horarios se calcularán según la duración de cada procedimiento seleccionado.</div>
+          <div id="mode-proc-${i}" style="${modo==='proc'?'':'display:none'};margin-top:8px">
+            <div style="font-size:11px;color:var(--text3)">Los horarios se calcularán según la duración de cada procedimiento seleccionado.</div>
           </div>
         </div>
 
-        <!-- PROCEDIMENTOS -->
+        <!-- PROCEDIMENTOS — fechados por padrão -->
         <div>
           <label style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px">Procedimientos que atiende</label>
           <div id="specs-${i}">${specHtml}</div>
